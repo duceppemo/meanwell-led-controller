@@ -78,7 +78,7 @@ void wifiLoop() {
     }
     if (s_ap && millis() - s_apStartedAt > AP_LINGER && millis() - s_connectedAt > 30000) stopAP();
   } else {
-    s_connectedAt = 0;
+    if (s_connectedAt) { s_connectedAt = 0; s_staAttemptAt = millis(); log_w("STA link lost"); }  // grace period before AP
     if (!s_ap && (!cfg.ssid[0] || millis() - s_staAttemptAt > STA_TIMEOUT)) wifiStartAP();
     if (s_ap && cfg.ssid[0] && millis() - s_staAttemptAt > STA_RETRY) beginSTA();
   }

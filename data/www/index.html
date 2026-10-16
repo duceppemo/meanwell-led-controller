@@ -162,7 +162,7 @@
       <div class="card">
         <h2>Device</h2>
         <label>Name <input data-k="device.name" maxlength="31"></label>
-        <label>Hostname <input data-k="device.hostname" maxlength="31" pattern="[a-zA-Z0-9-]+"></label>
+        <label>Hostname (mDNS name, applied at next reboot) <input data-k="device.hostname" maxlength="31" pattern="[a-zA-Z0-9-]+"></label>
         <label>Access point password (empty = open) <input data-k="wifi.apPass" type="password" autocomplete="new-password"></label>
       </div>
       <div class="card">
@@ -199,7 +199,7 @@
       </div>
       <div class="card">
         <h2>Sensors</h2>
-        <label>DS18B20 1-Wire GPIO (-1 = none) <input type="number" min="-1" max="48" data-k="sensors.oneWirePin"></label>
+        <label>DS18B20 1-Wire GPIO (-1 = none, applied at next reboot) <input type="number" min="-1" max="48" data-k="sensors.oneWirePin"></label>
       </div>
     </div>
     <div class="card">

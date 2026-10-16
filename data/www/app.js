@@ -42,6 +42,7 @@ function toast(msg, err) {
 const fail = e => toast(e.message || String(e), true);
 function hhmm(m) { m = ((Math.round(m) % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
 function toMin(s) { const [h, m] = (s || '0:0').split(':').map(Number); return (h * 60 + m) % 1440; }
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 function fmt(v, d = 0) { return (v == null || isNaN(v)) ? '–' : Number(v).toFixed(d); }
 function getPath(o, p) { return p.split('.').reduce((a, k) => a == null ? a : a[k], o); }
 function setPath(o, p, v) { const ks = p.split('.'); let a = o; for (let i = 0; i < ks.length - 1; i++) { if (a[ks[i]] == null) a[ks[i]] = {}; a = a[ks[i]]; } a[ks[ks.length - 1]] = v; }
@@ -162,7 +163,7 @@ function renderSched() {
   if (selProf >= prof.profiles.length) selProf = 0;
   if (selCh >= cfg.numChannels) selCh = 0;
   const sel = $('#profSel');
-  sel.innerHTML = prof.profiles.map((p, i) => `<option value="${i}">${p.name}${i === prof.active ? ' ★' : ''}</option>`).join('');
+  sel.innerHTML = prof.profiles.map((p, i) => `<option value="${i}">${esc(p.name)}${i === prof.active ? ' ★' : ''}</option>`).join('');
   sel.value = selProf;
   const p = curP();
   $('#profName').value = p.name; $('#profSmooth').checked = !!p.smooth;
@@ -170,7 +171,7 @@ function renderSched() {
   $('#btnAddProf').disabled = prof.profiles.length >= cfg.maxProfiles;
   $('#btnDelProf').disabled = prof.profiles.length <= 1;
   $('#chTabs').innerHTML = cfg.channels.slice(0, cfg.numChannels).map((c, i) =>
-    `<button type="button" data-i="${i}" class="${i === selCh ? 'active' : ''}" style="color:${COLORS[i]}">${c.name}</button>`).join('');
+    `<button type="button" data-i="${i}" class="${i === selCh ? 'active' : ''}" style="color:${COLORS[i]}">${esc(c.name)}</button>`).join('');
   $$('#chTabs button').forEach(b => b.onclick = () => { selCh = Number(b.dataset.i); renderSched(); });
   const tb = $('#points tbody');
   tb.innerHTML = p.channels[selCh].map((pt, i) => `<tr>
@@ -301,7 +302,7 @@ $('#btnScan').onclick = async () => {
     nets.sort((a, b) => b.rssi - a.rssi);
     const seen = new Set();
     $('#scanList').innerHTML = nets.filter(n => n.ssid && !seen.has(n.ssid) && seen.add(n.ssid))
-      .map(n => `<div data-ssid="${n.ssid.replace(/"/g, '&quot;')}"><span>${n.secure ? '🔒 ' : ''}${n.ssid}</span><span class="muted">${n.rssi} dBm</span></div>`).join('') || '<div class="muted">nothing found, try again</div>';
+      .map(n => `<div data-ssid="${esc(n.ssid)}"><span>${n.secure ? '🔒 ' : ''}${esc(n.ssid)}</span><span class="muted">${n.rssi} dBm</span></div>`).join('') || '<div class="muted">nothing found, try again</div>';
     $$('#scanList div[data-ssid]').forEach(d => d.onclick = () => { $('#wfSsid').value = d.dataset.ssid; $('#wfPass').focus(); });
     $('#wifiState').textContent = nets.length + ' networks';
   } catch (e) { fail(e); }
@@ -321,7 +322,7 @@ function renderSys() {
   const rows = [['Firmware', st.fw], ['Uptime', (d ? d + 'd ' : '') + hh + 'h ' + mm + 'm'], ['Free heap', Math.round(st.heap / 1024) + ' kB'],
     ['Hostname', st.wifi.hostname + '.local'], ['IP', st.wifi.ip || st.wifi.apIp || '–'], ['MAC', st.wifi.mac], ['Time', st.time.now + ' (' + st.time.tz + ')'],
     ['Local temp sensor', st.sensors.local ? 'DS18B20 found' : 'none']];
-  $('#sysInfo').innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+  $('#sysInfo').innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${esc(r[1])}</td></tr>`).join('');
 }
 $('#btnReboot').onclick = () => confirm('Reboot the controller?') && api('reboot').then(() => toast('Rebooting…')).catch(fail);
 $('#btnAp').onclick = () => api('wifi/ap').then(() => toast('Access point started')).catch(fail);

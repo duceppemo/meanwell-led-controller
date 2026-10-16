@@ -24,7 +24,7 @@ static AsyncWebServer server(80);
 enum : uint32_t {
   ACT_APPLY_CONFIG = 1 << 0, ACT_SAVE_CONFIG = 1 << 1, ACT_SAVE_PROFILES = 1 << 2,
   ACT_WIFI_CONNECT = 1 << 3, ACT_WIFI_AP = 1 << 4, ACT_REBOOT = 1 << 5,
-  ACT_FACTORY = 1 << 6, ACT_TIME_APPLY = 1 << 7,
+  ACT_FACTORY = 1 << 6, ACT_TIME_APPLY = 1 << 7, ACT_REMOUNT_FS = 1 << 8,
 };
 static volatile uint32_t s_actions = 0;
 static uint32_t s_actionAt = 0;
@@ -66,8 +66,10 @@ static void statusJson(JsonObject o) {
 static bool isCaptiveHost(AsyncWebServerRequest* req) {
   if (!wifiIsAP()) return false;
   String host = req->host();
-  String apIp = WiFi.softAPIP().toString();
-  return host != apIp && host != String(cfg.hostname) && host != String(cfg.hostname) + ".local";
+  int colon = host.indexOf(':'); if (colon > 0) host = host.substring(0, colon);
+  if (host == WiFi.softAPIP().toString()) return false;
+  if (wifiConnected() && host == WiFi.localIP().toString()) return false;   // LAN client while the AP lingers
+  return host != String(cfg.hostname) && host != String(cfg.hostname) + ".local";
 }
 
 // ---------- OTA ----------
@@ -76,14 +78,19 @@ static void onUpdateBody(AsyncWebServerRequest* req, const String& filename, siz
     bool fs = (req->hasParam("type") && req->getParam("type")->value() == "fs") || filename.indexOf("littlefs") >= 0;
     s_updateOk = false; s_updateErr = "";
     log_i("OTA start: %s (%s)", filename.c_str(), fs ? "filesystem" : "firmware");
+    if (Update.isRunning()) Update.abort();          // a previous upload that never finished
     if (fs) LittleFS.end();
-    if (!Update.begin(UPDATE_SIZE_UNKNOWN, fs ? U_SPIFFS : U_FLASH)) { s_updateErr = Update.errorString(); return; }
+    if (!Update.begin(UPDATE_SIZE_UNKNOWN, fs ? U_SPIFFS : U_FLASH)) {
+      s_updateErr = Update.errorString(); if (fs) queue(ACT_REMOUNT_FS); return;
+    }
   }
   if (s_updateErr.length()) return;
-  if (len && Update.write(data, len) != len) { s_updateErr = Update.errorString(); Update.abort(); return; }
+  if (len && Update.write(data, len) != len) {
+    s_updateErr = Update.errorString(); Update.abort(); queue(ACT_REMOUNT_FS); return;
+  }
   if (final) {
     if (Update.end(true)) { s_updateOk = true; log_i("OTA done (%u bytes)", (unsigned)(index + len)); }
-    else s_updateErr = Update.errorString();
+    else { s_updateErr = Update.errorString(); queue(ACT_REMOUNT_FS); }
   }
 }
 
@@ -266,7 +273,6 @@ void webBegin() {
   server.serveStatic("/", LittleFS, "/www/").setDefaultFile("index.html").setCacheControl("max-age=300");
 
   server.onNotFound([](AsyncWebServerRequest* r) {
-    if (r->method() == HTTP_OPTIONS) { r->send(200); return; }
     if (r->url().startsWith("/api/")) { sendErr(r, 404, "not found"); return; }
     if (isCaptiveHost(r)) { r->redirect("http://" + WiFi.softAPIP().toString() + "/"); return; }
     if (!LittleFS.exists("/www/index.html")) {
@@ -277,9 +283,8 @@ void webBegin() {
     r->send(404, "text/plain", "Not found");
   });
 
-  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
-  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
+  // No CORS headers on purpose: the API has no authentication, so a page on another
+  // origin must not be able to drive the lights from the user's browser.
   server.begin();
   log_i("HTTP server started");
 }
@@ -298,6 +303,7 @@ void webLoop() {
     WiFi.disconnect(true, true);
     delay(200); ESP.restart();
   }
+  if (a & ACT_REMOUNT_FS)    { if (!LittleFS.begin(false)) log_e("LittleFS remount failed"); }
   if (a & ACT_SAVE_CONFIG)   configSave();
   if (a & ACT_SAVE_PROFILES) profilesSave();
   if (a & ACT_APPLY_CONFIG)  { channelsReconfigure(); engineConfigChanged(); }

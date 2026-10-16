@@ -44,9 +44,23 @@ Later updates can be done from the browser (System → Firmware update) with
 
 Hold the BOOT button 5 s to force the access point, 15 s for a factory reset.
 
+## Security
+
+There is **no authentication**: anyone on your LAN (or on the open access point) can
+control the lights, read the Wi-Fi password through the backup endpoint, and flash
+firmware. Keep the controller on a trusted network, set an access-point password in
+Settings → Device, and do not port-forward it. ArduinoOTA (port 3232, no password) is
+also enabled, so `pio run -t upload --upload-port ledctrl.local` works over Wi-Fi.
+
 ## REST API
 
-All endpoints return JSON. `GET` reads, `POST` writes (JSON body).
+All endpoints return JSON. `GET` reads, `POST` writes a JSON body and **requires**
+`Content-Type: application/json`.
+
+```sh
+curl http://ledctrl.local/api/status
+curl -X POST -H "Content-Type: application/json" -d '{"mode":"off","timeoutS":900}' http://ledctrl.local/api/mode
+```
 
 | Endpoint | Purpose |
 |---|---|

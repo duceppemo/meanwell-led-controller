@@ -7,6 +7,23 @@ static uint32_t s_maxDuty = 4095;
 static void detachAll() {
   for (uint8_t i = 0; i < MAX_CHANNELS; i++) {
     if (s_attachedPin[i] >= 0) { ledcDetach(s_attachedPin[i]); s_attachedPin[i] = -1; }
+    s_driverPct[i] = 0;
+  }
+}
+
+// A disabled / unused channel pin must not float: with an open-collector stage a
+// floating GPIO means the transistor is off and the driver runs at 100 %.
+static bool pinReserved(int8_t pin) {
+  if (pin == cfg.relayPin || pin == cfg.oneWirePin || pin == PIN_BUTTON || pin == PIN_STATUS_LED) return true;
+  for (uint8_t i = 0; i < MAX_CHANNELS; i++) if (s_attachedPin[i] == pin) return true;
+  return false;
+}
+static void parkUnusedPins() {
+  for (uint8_t i = 0; i < MAX_CHANNELS; i++) {
+    const ChannelCfg& c = cfg.ch[i];
+    if (s_attachedPin[i] >= 0 || c.pin < 0 || pinReserved(c.pin)) continue;
+    pinMode(c.pin, OUTPUT);
+    digitalWrite(c.pin, c.invert ? HIGH : LOW);
   }
 }
 
@@ -25,6 +42,7 @@ void channelsReconfigure() {
     ledcWrite(c.pin, 0);
     s_driverPct[i] = 0;
   }
+  parkUnusedPins();
 }
 
 void channelsBegin() {

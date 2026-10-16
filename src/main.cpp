@@ -44,6 +44,15 @@ static void ledLoop() {
   else                       on = (t % 3000) < 40;
   if (s_pressedAt) on = ((t - s_pressedAt) % 200) < 100;   // feedback while the button is held
   digitalWrite(PIN_STATUS_LED, on ? HIGH : LOW);
+#elif defined(STATUS_RGB) && defined(RGB_BUILTIN)
+  static bool last = false;
+  uint32_t t = millis();
+  bool on;
+  if (wifiIsAP())            on = (t % 300) < 150;
+  else if (!wifiConnected()) on = (t % 1000) < 500;
+  else                       on = (t % 3000) < 40;
+  if (s_pressedAt) on = ((t - s_pressedAt) % 200) < 100;
+  if (on != last) { last = on; rgbLedWrite(RGB_BUILTIN, 0, on ? 12 : 0, on ? 24 : 0); }
 #endif
 }
 

@@ -76,7 +76,7 @@ static float thermalFactor() {
   if (s_shutdown && t < cfg.tempDimStart) s_shutdown = false;
   if (s_shutdown) return 0.0f;
   if (t <= cfg.tempDimStart) return 1.0f;
-  if (t >= cfg.tempDimFull)  return cfg.tempDimFloor / 100.0f;
+  if (t >= cfg.tempDimFull || cfg.tempDimFull <= cfg.tempDimStart) return cfg.tempDimFloor / 100.0f;
   float f = (t - cfg.tempDimStart) / (cfg.tempDimFull - cfg.tempDimStart);
   return 1.0f - f * (1.0f - cfg.tempDimFloor / 100.0f);
 }

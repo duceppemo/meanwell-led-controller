@@ -16,8 +16,9 @@ current is "not defined". The XLG/ELG "AB" types **dim to off** at 0 % duty, 0 V
 HLG-B types do **not** dim to off: at 0 V they sit at ~10 %. Use the optional relay output
 (Settings → Relay) to cut mains or DC for a true off.
 
-DIM+/DIM- is isolated from the LED output on these series, so the ESP32 ground can be tied
-to DIM- directly.
+The dimming input is isolated from the LED output on the XLG/ELG "AB" types and on the
+HLG "B" types (check the block diagram of your exact model). Tie the ESP32 ground to
+**DIM-** only, never to the LED output -V.
 
 ## Level shifting 3.3 V PWM to the 10 V input
 
@@ -39,6 +40,12 @@ Settings → Channels so the firmware compensates.
 Because the pull-up is only 100 µA, the rising edge is slow (RC of the driver's input).
 Keep the PWM frequency at **≤ 1 kHz** with this circuit. If several drivers share one
 channel, the current adds up (100 µA × N), which is fine for the transistor.
+
+**Boot state matters.** Until the firmware configures the pins (a few hundred ms after
+power-up, longer after a crash) every GPIO floats. With an open-collector stage a floating
+GPIO means the transistor is off and the driver runs at **100 %**. Add a **10 kΩ pull-up
+from the base/gate to 3.3 V** so the transistor is on (driver at 0 %) whenever the GPIO is
+not driven. The firmware also parks every unused channel pin at its "off" level.
 
 ### B. Open-collector with an external 12 V pull-up (clean edges, many drivers per channel)
 
@@ -64,12 +71,13 @@ non-inverted drive, but the firmware's Invert flag makes options A–C just as g
 
 | Target | PWM channels (GPIO) | 1-Wire | Button | Status LED |
 |---|---|---|---|---|
-| esp32dev (WROOM-32) | 25, 26, 27, 14, 32, 33, 13, 23 | 4 | 0 (BOOT) | 2 |
-| esp32-c3-devkitm-1 | 2, 3, 4, 5, 6, 7 | 10 | 9 (BOOT) | 8 |
-| esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | 2 |
+| esp32dev (WROOM-32) | 25, 26, 27, 14, 32, 33, 13, 23 | 4 | 0 (BOOT) | 2 (on-board LED) |
+| esp32-c3-devkitm-1 | 3, 4, 5, 6, 7, 10 | 1 | 9 (BOOT) | on-board RGB LED (GPIO 8) |
+| esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | on-board RGB LED (GPIO 48) |
 
 Pins are only defaults and can be changed from the web UI. Avoid GPIO 0, 2, 12, 15 on
-the classic ESP32 for outputs (boot strapping pins) and GPIO 34–39 (input only).
+the classic ESP32 for outputs (boot strapping pins) and GPIO 34–39 (input only). On the
+C3 avoid GPIO 2, 8, 9 (strapping) and 18/19 (USB).
 
 ## Temperature sensor
 
