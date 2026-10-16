@@ -27,6 +27,17 @@ Environments: `esp32dev` (default), `esp32dev-ble` (adds BLE Wi-Fi provisioning)
 Later updates can be done from the browser (System → Firmware update) with
 `.pio/build/esp32dev/firmware.bin` or `littlefs.bin` (`pio run -t buildfs`).
 
+## Tests
+
+The web UI's pure helpers (schedule interpolation, time formatting, escaping) have unit
+tests that need only Node.js:
+
+```sh
+node test/ui/helpers.test.js
+```
+
+The firmware has no on-host tests; build all targets with `pio run` to check it compiles.
+
 ## First start
 
 1. Power up. The status LED blinks fast: the controller is an access point named
@@ -107,4 +118,5 @@ rest_command:
 | `src/WebUi.*` | async HTTP server, REST API, OTA upload |
 | `src/BleProv.*` | optional NimBLE provisioning |
 | `data/www/` | web UI (vanilla HTML/CSS/JS) |
+| `test/ui/` | Node unit tests for the UI helpers |
 | `include/pins.h` | per-board defaults |
