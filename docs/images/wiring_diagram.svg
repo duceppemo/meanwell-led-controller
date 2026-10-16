@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <title>Wiring: ESP32 to Mean Well DIM+/DIM- through an open-collector stage</title>
+  <desc>An ESP32 dev board powered from a 5 V supply drives, per channel, a 1 kΩ base resistor into an NPN transistor whose collector goes to the driver's DIM+ and emitter to DIM- and ESP32 ground; a 10 kΩ pull-up from base to 3.3 V keeps the transistor on (driver at 0 %) while the GPIO floats at boot; an optional 10 kΩ pull-up from DIM+ to 12 V sharpens edges. A DS18B20 with a 4.7 kΩ pull-up to 3.3 V sits on the 1-Wire pin. An optional relay module on another GPIO breaks the drivers' AC line. The driver's +V/-V output feeds the LED fixture.</desc>
+  <defs>
+    <style>
+      .box{fill:#ffffff;stroke:#8c959f;stroke-width:1.2;rx:8}
+      .t{fill:#1f2328}
+      .h{font-weight:600;font-size:14px}
+      .s{fill:#57606a;font-size:11px}
+      .w{stroke:#1f2328;stroke-width:1.6;fill:none}
+      .sig{stroke:#d4a017;stroke-width:2;fill:none}
+      .dim{stroke:#8250df;stroke-width:2;fill:none}
+      .opt{stroke:#57606a;stroke-width:1.4;fill:none;stroke-dasharray:5 4}
+      .ac{stroke:#cf222e;stroke-width:1.6;fill:none}
+      .comp{fill:#ffffff;stroke:#1f2328;stroke-width:1.4}
+      .lbl{fill:#57606a;font-size:11px}
+      .pin{fill:#1f2328;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .node{fill:#1f2328}
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#f6f8fa" rx="12"/>
+
+  <!-- ===== 5 V supply ===== -->
+  <rect class="box" x="30" y="40" width="150" height="56"/>
+  <text class="t h" x="105" y="63" text-anchor="middle">5 V supply</text>
+  <text class="s" x="105" y="80" text-anchor="middle">USB or buck from 12 V</text>
+  <text class="pin" x="186" y="54">5V</text>
+  <text class="pin" x="186" y="96">GND</text>
+  <path class="w" d="M180,58 L230,58"/>
+  <path class="w" d="M180,82 L205,82 L205,470 L600,470"/>
+
+  <!-- ===== ESP32 ===== -->
+  <rect class="box" x="230" y="40" width="190" height="300"/>
+  <text class="t h" x="325" y="64" text-anchor="middle">ESP32 dev board</text>
+  <text class="s" x="325" y="80" text-anchor="middle">esp32dev default pins</text>
+  <text class="pin" x="238" y="62">5V</text>
+  <text class="pin" x="238" y="112">3V3</text>
+  <text class="pin" x="238" y="330">GND</text>
+  <path class="w" d="M230,322 L205,322"/>
+  <text class="s" x="300" y="140">CH1 PWM</text><text class="pin" x="360" y="140">GPIO25</text>
+  <text class="s" x="300" y="220">CH2 PWM</text><text class="pin" x="360" y="220">GPIO26</text>
+  <text class="s" x="325" y="252" text-anchor="middle">… CH3–CH8 on 27, 14, 32, 33, 13</text>
+  <text class="s" x="300" y="284">1-Wire</text><text class="pin" x="360" y="284">GPIO4</text>
+  <text class="s" x="300" y="314">relay (opt.)</text><text class="pin" x="360" y="314">GPIO23</text>
+
+  <!-- 3.3 V rail -->
+  <path class="w" d="M230,108 L215,108 L215,24 L540,24"/>
+  <text class="lbl" x="400" y="20">3.3 V</text>
+
+  <!-- ===== channel 1: open-collector stage ===== -->
+  <path class="sig" d="M420,136 L460,136"/>
+  <rect class="comp" x="460" y="129" width="40" height="14"/>
+  <text class="lbl" x="480" y="124" text-anchor="middle">1 kΩ</text>
+  <path class="sig" d="M500,136 L541,136"/>
+  <!-- base pull-up to 3.3 V -->
+  <circle class="node" cx="520" cy="136" r="2.5"/>
+  <path class="w" d="M520,136 L520,100"/>
+  <rect class="comp" x="513" y="60" width="14" height="40"/>
+  <path class="w" d="M520,60 L520,24"/>
+  <text class="lbl" x="534" y="76">10 kΩ</text>
+  <text class="lbl" x="534" y="90">keeps Q1 on while the</text>
+  <text class="lbl" x="534" y="103">GPIO floats at boot</text>
+  <!-- Q1 -->
+  <circle class="comp" cx="560" cy="136" r="18"/>
+  <path class="w" d="M549,126 L549,146 M549,131 L570,120 M549,141 L570,152"/>
+  <path d="M564,149 L570,152 L565,154 Z" fill="#1f2328"/>
+  <text class="lbl" x="560" y="170" text-anchor="middle">Q1  2N2222 / BC547</text>
+  <text class="lbl" x="560" y="183" text-anchor="middle">(or 2N7000, no 1 kΩ)</text>
+  <!-- collector -> DIM+ -->
+  <path class="dim" d="M570,120 L640,120 L640,100 L720,100"/>
+  <!-- emitter -> DIM- rail -->
+  <path class="w" d="M570,152 L600,152"/>
+  <circle class="node" cx="600" cy="152" r="2.5"/>
+  <path class="dim" d="M720,130 L600,130 L600,470"/>
+  <circle class="node" cx="600" cy="470" r="2.5"/>
+  <!-- optional 12 V pull-up on DIM+ -->
+  <circle class="node" cx="680" cy="100" r="2.5"/>
+  <path class="opt" d="M680,100 L680,72"/>
+  <rect class="comp" x="673" y="42" width="14" height="30" stroke-dasharray="4 3"/>
+  <path class="opt" d="M680,42 L680,20 L700,20"/>
+  <text class="lbl" x="704" y="24">+12 V (optional: sharper edges)</text>
+  <text class="lbl" x="692" y="62">10 kΩ</text>
+
+  <!-- ===== channel 2 (abbreviated) ===== -->
+  <path class="sig" d="M420,216 L460,216"/>
+  <rect class="comp" x="460" y="209" width="40" height="14"/>
+  <path class="sig" d="M500,216 L541,216"/>
+  <circle class="comp" cx="560" cy="216" r="18"/>
+  <path class="w" d="M549,206 L549,226 M549,211 L570,200 M549,221 L570,232"/>
+  <path class="dim" d="M570,200 L625,200 L625,266 L720,266"/>
+  <path class="w" d="M570,232 L600,232"/>
+  <circle class="node" cx="600" cy="232" r="2.5"/>
+  <path class="dim" d="M720,288 L600,288"/>
+  <circle class="node" cx="600" cy="288" r="2.5"/>
+  <text class="lbl" x="480" y="240" text-anchor="middle">same stage per channel</text>
+
+  <!-- ===== Mean Well driver 1 ===== -->
+  <rect class="box" x="720" y="60" width="200" height="120"/>
+  <text class="t h" x="820" y="82" text-anchor="middle">Mean Well driver 1</text>
+  <text class="pin" x="726" y="104">DIM+</text>
+  <text class="pin" x="726" y="134">DIM-</text>
+  <text class="pin" x="896" y="104">+V</text>
+  <text class="pin" x="896" y="134">-V</text>
+  <text class="s" x="820" y="158" text-anchor="middle">HLG-…-B / XLG-…-AB (3-in-1)</text>
+  <text class="pin" x="820" y="174" text-anchor="middle">AC L    AC N</text>
+  <path class="w" d="M920,100 L930,100 M920,130 L930,130"/>
+  <text class="lbl" x="925" y="92">LEDs</text>
+
+  <!-- ===== Mean Well driver 2 ===== -->
+  <rect class="box" x="720" y="230" width="200" height="84"/>
+  <text class="t h" x="820" y="252" text-anchor="middle">Mean Well driver 2</text>
+  <text class="pin" x="726" y="270">DIM+</text>
+  <text class="pin" x="726" y="292">DIM-</text>
+  <text class="s" x="820" y="306" text-anchor="middle">one driver (or several) per channel</text>
+
+  <!-- ===== DS18B20 ===== -->
+  <path class="sig" d="M420,280 L470,280 L470,380"/>
+  <circle class="node" cx="470" cy="330" r="2.5"/>
+  <path class="w" d="M470,330 L505,330 L505,318"/>
+  <rect class="comp" x="498" y="282" width="14" height="36"/>
+  <path class="w" d="M505,282 L505,268"/>
+  <circle cx="505" cy="265" r="3" fill="none" stroke="#1f2328" stroke-width="1.4"/>
+  <text class="lbl" x="513" y="270">3.3 V</text>
+  <text class="lbl" x="513" y="302">4.7 kΩ</text>
+  <rect class="box" x="420" y="380" width="130" height="60"/>
+  <text class="t h" x="485" y="402" text-anchor="middle">DS18B20</text>
+  <text class="s" x="485" y="418" text-anchor="middle">heat-sink / canopy</text>
+  <text class="s" x="485" y="432" text-anchor="middle">temperature</text>
+  <path class="w" d="M485,440 L485,470"/>
+  <circle class="node" cx="485" cy="470" r="2.5"/>
+
+  <!-- ===== relay (optional) ===== -->
+  <path class="opt" d="M420,310 L440,310 L440,356 L660,356 L660,380"/>
+  <rect class="box" x="600" y="380" width="130" height="60" stroke-dasharray="5 4"/>
+  <text class="t h" x="665" y="402" text-anchor="middle">Relay / SSR</text>
+  <text class="s" x="665" y="418" text-anchor="middle">breaks AC L to the drivers</text>
+  <text class="s" x="665" y="432" text-anchor="middle">(true off for HLG-B)</text>
+  <path class="ac" d="M730,396 L770,396"/>
+  <text class="lbl" x="774" y="400">AC L → drivers</text>
+  <path class="ac" d="M730,424 L770,424"/>
+  <text class="lbl" x="774" y="428">mains in</text>
+
+  <!-- ===== ground ===== -->
+  <text class="lbl" x="214" y="486">common ground: ESP32 GND and every driver's DIM- (never the LED output -V)</text>
+
+  <!-- legend -->
+  <g transform="translate(30,520)">
+    <line x1="0" y1="8" x2="36" y2="8" class="sig"/><text class="s" x="44" y="12">3.3 V logic</text>
+    <line x1="130" y1="8" x2="166" y2="8" class="dim"/><text class="s" x="174" y="12">DIM+ / DIM-  (0–10 V from the driver's own source; inverted → tick "Invert")</text>
+    <line x1="600" y1="8" x2="636" y2="8" class="ac"/><text class="s" x="644" y="12">mains</text>
+    <line x1="700" y1="8" x2="736" y2="8" class="opt"/><text class="s" x="744" y="12">optional</text>
+  </g>
+</svg>
