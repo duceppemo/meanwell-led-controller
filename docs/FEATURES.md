@@ -25,7 +25,8 @@
 - Per-channel **gamma** for a perceptual dimming curve.
 - Global **master** level.
 - **Slew limiting** (max %/s): smooth transitions when switching modes, soft start at boot.
-- Optional **relay output** for a true off with HLG-B drivers (which only dim to ~10 %).
+- Optional **relay output** for a true off with older HLG-xxxH-B drivers (which only dim
+  to ~10 %) and to cut the drivers' standby draw.
 
 ### Scheduling
 - **Profiles** ("modes", up to 5) such as Seedling / Veg / Bloom, each with one 24 h curve

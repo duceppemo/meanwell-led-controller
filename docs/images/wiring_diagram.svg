@@ -101,7 +101,7 @@
   <text class="pin" x="726" y="134">DIM-</text>
   <text class="pin" x="896" y="104">+V</text>
   <text class="pin" x="896" y="134">-V</text>
-  <text class="s" x="820" y="158" text-anchor="middle">HLG-…-B / XLG-…-AB (3-in-1)</text>
+  <text class="s" x="820" y="158" text-anchor="middle">XLG-…-AB / HLG-…-C-B (3-in-1)</text>
   <text class="pin" x="820" y="174" text-anchor="middle">AC L    AC N</text>
   <path class="w" d="M920,100 L930,100 M920,130 L930,130"/>
   <text class="lbl" x="925" y="92">LEDs</text>
@@ -134,7 +134,7 @@
   <rect class="box" x="600" y="380" width="130" height="60" stroke-dasharray="5 4"/>
   <text class="t h" x="665" y="402" text-anchor="middle">Relay / SSR</text>
   <text class="s" x="665" y="418" text-anchor="middle">breaks AC L to the drivers</text>
-  <text class="s" x="665" y="432" text-anchor="middle">(true off for HLG-B)</text>
+  <text class="s" x="665" y="432" text-anchor="middle">(older HLG-B, standby)</text>
   <path class="ac" d="M730,396 L770,396"/>
   <text class="lbl" x="774" y="400">AC L → drivers</text>
   <path class="ac" d="M730,424 L770,424"/>

@@ -76,7 +76,7 @@
 
   <rect class="box io" x="660" y="268" width="270" height="44"/>
   <text class="t h" x="795" y="288" text-anchor="middle">Relay / SSR (optional)</text>
-  <text class="s" x="795" y="305" text-anchor="middle">true off for HLG-B drivers that stop at ~10 %</text>
+  <text class="s" x="795" y="305" text-anchor="middle">true off for older HLG-B drivers · cuts standby power</text>
 
   <!-- ===== bottom row: connectivity ===== -->
   <rect class="box" x="60" y="450" width="140" height="70"/>

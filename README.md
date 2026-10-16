@@ -27,8 +27,9 @@ driver itself sources about 100 µA into DIM+. One NPN (or small MOSFET) per cha
 open-collector configuration therefore gives a 0–10 V PWM from a 3.3 V GPIO with no
 extra supply; the firmware's per-channel **Invert** flag compensates for the inversion.
 The base pull-up matters: a floating GPIO at boot would otherwise leave the transistor
-off and the driver at 100 %. XLG/ELG "AB" types dim to off; HLG "B" types stop at
-~10 %, which is what the optional relay is for. See [docs/HARDWARE.md](docs/HARDWARE.md)
+off and the driver at 100 %. XLG "AB" and HLG "C" B-types dim to off (minimum 8 % / 6 %);
+the older HLG-xxxH-B units stop at ~10 %, which is what the optional relay is for. See
+[docs/HARDWARE.md](docs/HARDWARE.md)
 for the datasheet figures, alternative level-shifting stages (12 V pull-up,
 optocoupler), pin maps per board and the sensor and relay hookups.
 
@@ -55,7 +56,7 @@ endpoint under `/api/`. See [docs/WEB_UI.md](docs/WEB_UI.md).
 - Acclimation ramp for new plants or corals (start % → 100 % over N days)
 - Thermal protection from a DS18B20 or an externally posted temperature: proportional
   dimming between two thresholds, latched shutdown, automatic recovery
-- Optional relay / SSR output for a true off with HLG-B drivers
+- Optional relay / SSR output for a true off with older HLG-B drivers and to cut standby power
 - Clock persisted to NVS every 5 min so a power cut without NTP resumes the schedule at
   approximately the right time; configurable fallback level when time was never known
 - AP-first Wi-Fi onboarding with captive portal, automatic fallback to AP when the home

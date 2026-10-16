@@ -8,7 +8,7 @@ struct ChannelCfg {
   int8_t pin;
   bool  enabled;
   bool  invert;     // true when a direct NPN/MOSFET shorts DIM+ (GPIO high = 0 % output)
-  float minPct;     // driver minimum usable level (XLG ~8 %, HLG-B 10 %); 0 % is still "off"
+  float minPct;     // driver minimum usable level (XLG-AB ~8 %, HLG-C-B ~6 %); 0 % is still "off"
   float maxPct;     // cap, e.g. 80 % to derate a fixture
   float gamma;      // perceptual curve, 1.0 = linear
   bool  moon;       // channel participates in the lunar cycle
@@ -48,8 +48,8 @@ struct Config {
   float tempDimFloor;   // % of normal level at tempDimFull
   float tempShutdown;   // latch outputs off above this, until T < tempDimStart
   int8_t oneWirePin;
-  // optional mains / DC relay: HLG-B drivers only dim to ~10 %, so a relay gives a
-  // true "off" (and kills standby power). -1 = not used.
+  // optional mains / DC relay: older HLG-xxxH-B drivers only dim to ~10 %, so a relay
+  // gives a true "off" (and kills standby power on any driver). -1 = not used.
   int8_t   relayPin;
   bool     relayActiveLow;
   uint16_t relayOffDelayS; // keep the relay on this long after all channels reach 0

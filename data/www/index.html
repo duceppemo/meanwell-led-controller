@@ -195,7 +195,7 @@
         <label>GPIO (-1 = none) <input type="number" min="-1" max="48" data-k="relay.pin"></label>
         <label class="chk"><input type="checkbox" data-k="relay.activeLow"> Active low</label>
         <label>Off delay (s) <input type="number" min="0" max="3600" data-k="relay.offDelay"></label>
-        <p class="muted small">Switches driver mains or DC off once all channels are at 0 %. Useful for HLG-B drivers that only dim down to ~10 %.</p>
+        <p class="muted small">Switches driver mains or DC off once all channels are at 0 %. Useful for older HLG-B drivers that only dim down to ~10 %, or to cut standby power.</p>
       </div>
       <div class="card">
         <h2>Sensors</h2>
@@ -211,7 +211,7 @@
           <tbody></tbody>
         </table>
       </div>
-      <p class="muted small">Min % is the driver's lowest usable level (XLG ≈ 8 %, HLG-B ≈ 10 %); 0 % on the schedule still means off. Invert when a transistor pulls DIM+ low (open-collector drive).</p>
+      <p class="muted small">Min % is the driver's lowest usable level (XLG-AB ≈ 8 %, HLG-C-B ≈ 6 %, older HLG-B ≈ 10 %); 0 % on the schedule still means off. Invert when a transistor pulls DIM+ low (open-collector drive).</p>
     </div>
   </form>
   <div class="btnrow"><button id="btnSaveSet">Save settings</button></div>
