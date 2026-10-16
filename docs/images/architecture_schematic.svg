@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
   <title>Firmware architecture</title>
-  <desc>Schedule, Effects, Sensors and TimeKeeper feed the Engine, which computes one target level per channel and slews the Channels (LEDC PWM) that drive the Mean Well DIM+/DIM- inputs and an optional relay. WebUi, WifiManager and BleProv drive dashed configuration paths into Config, Schedule and Engine. Config and Schedule persist to LittleFS.</desc>
+  <desc>Config, Schedule, Effects, Sensors and TimeKeeper feed the Engine from the left; the Engine drives Channels (LEDC PWM) to the Mean Well DIM+/DIM- inputs and an optional relay on the right; Channels also read Config. WebUi sends configuration to Config and Schedule and control commands to the Engine; WebUi and BleProv hand Wi-Fi credentials to WifiManager; main.cpp polls every subsystem from one loop.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
@@ -18,123 +18,126 @@
       .flow{stroke:#d4a017;stroke-width:2.2;fill:none;marker-end:url(#arrowAcc)}
       .link{stroke:#57606a;stroke-width:1.3;fill:none;marker-end:url(#arrow)}
       .cfg{stroke:#57606a;stroke-width:1.3;fill:none;stroke-dasharray:5 4;marker-end:url(#arrow)}
+      .bus{stroke:#57606a;stroke-width:1.3;fill:none;stroke-dasharray:5 4}
       .lbl{fill:#57606a;font-size:11px;font-style:italic}
     </style>
   </defs>
-  <rect width="960" height="520" fill="#f6f8fa" rx="12"/>
+  <rect width="960" height="560" fill="#f6f8fa" rx="12"/>
 
-  <!-- ===== inputs (left column) ===== -->
-  <g>
-    <rect class="box" x="30" y="40" width="200" height="62"/>
-    <text class="t h" x="130" y="63" text-anchor="middle">TimeKeeper</text>
-    <text class="s" x="130" y="80" text-anchor="middle">NTP · POSIX TZ · epoch kept in NVS</text>
-    <text class="s" x="130" y="94" text-anchor="middle">"approximate time" after power loss</text>
+  <!-- ===== left column: inputs ===== -->
+  <rect class="box" x="60" y="40" width="200" height="56"/>
+  <text class="t h" x="160" y="62" text-anchor="middle">Config</text>
+  <text class="s" x="160" y="80" text-anchor="middle">settings · JSON on LittleFS</text>
 
-    <rect class="box acc" x="30" y="122" width="200" height="62"/>
-    <text class="t h" x="130" y="145" text-anchor="middle">Schedule</text>
-    <text class="s" x="130" y="162" text-anchor="middle">profiles · 24 h (minute, level) curves</text>
-    <text class="s" x="130" y="176" text-anchor="middle">linear / cosine, wraps midnight</text>
+  <rect class="box acc" x="60" y="110" width="200" height="56"/>
+  <text class="t h" x="160" y="132" text-anchor="middle">Schedule</text>
+  <text class="s" x="160" y="150" text-anchor="middle">profiles · 24 h curves · JSON on LittleFS</text>
 
-    <rect class="box acc" x="30" y="204" width="200" height="62"/>
-    <text class="t h" x="130" y="227" text-anchor="middle">Effects</text>
-    <text class="s" x="130" y="244" text-anchor="middle">moon phase · CloudSim · LightningSim</text>
+  <rect class="box acc" x="60" y="180" width="200" height="56"/>
+  <text class="t h" x="160" y="202" text-anchor="middle">Effects</text>
+  <text class="s" x="160" y="220" text-anchor="middle">moon phase · CloudSim · LightningSim</text>
 
-    <rect class="box acc" x="30" y="286" width="200" height="62"/>
-    <text class="t h" x="130" y="309" text-anchor="middle">Sensors</text>
-    <text class="s" x="130" y="326" text-anchor="middle">DS18B20 (1-Wire) or values posted</text>
-    <text class="s" x="130" y="340" text-anchor="middle">to /api/sensors</text>
+  <rect class="box acc" x="60" y="250" width="200" height="56"/>
+  <text class="t h" x="160" y="272" text-anchor="middle">Sensors</text>
+  <text class="s" x="160" y="290" text-anchor="middle">DS18B20 (1-Wire) or POST /api/sensors</text>
 
-    <rect class="box" x="30" y="368" width="200" height="62"/>
-    <text class="t h" x="130" y="391" text-anchor="middle">Config</text>
-    <text class="s" x="130" y="408" text-anchor="middle">channels · PWM · effects · protection</text>
-    <text class="s" x="130" y="422" text-anchor="middle">Wi-Fi · time · relay</text>
-  </g>
+  <rect class="box" x="60" y="320" width="200" height="56"/>
+  <text class="t h" x="160" y="342" text-anchor="middle">TimeKeeper</text>
+  <text class="s" x="160" y="360" text-anchor="middle">NTP · POSIX TZ · epoch kept in NVS</text>
 
-  <!-- ===== engine (center) ===== -->
-  <rect class="box acc" x="330" y="122" width="250" height="226"/>
-  <text class="t h" x="455" y="148" text-anchor="middle">Engine</text>
-  <text class="s" x="455" y="170" text-anchor="middle">mode: auto · manual · off · preview</text>
-  <text class="s" x="455" y="186" text-anchor="middle">(timed pause returns to auto)</text>
-  <text class="s" x="455" y="210" text-anchor="middle">level = schedule(t) × clouds</text>
-  <text class="s" x="455" y="226" text-anchor="middle">max(level, moon) → × master</text>
-  <text class="s" x="455" y="242" text-anchor="middle">× acclimation × thermal</text>
-  <text class="s" x="455" y="258" text-anchor="middle">lightning flash → 100 %</text>
-  <text class="s" x="455" y="282" text-anchor="middle">slew limiter (%/s)</text>
-  <text class="s" x="455" y="298" text-anchor="middle">thermal shutdown latch</text>
-  <text class="s" x="455" y="322" text-anchor="middle">relay on when any channel &gt; 0,</text>
-  <text class="s" x="455" y="336" text-anchor="middle">off after delay</text>
+  <!-- ===== center: engine ===== -->
+  <rect class="box acc" x="330" y="40" width="250" height="336"/>
+  <text class="t h" x="455" y="66" text-anchor="middle">Engine</text>
+  <text class="s" x="455" y="92" text-anchor="middle">mode: auto · manual · off · preview</text>
+  <text class="s" x="455" y="108" text-anchor="middle">timed pause returns to auto</text>
+  <text class="s" x="455" y="136" text-anchor="middle">level = schedule(minute) × clouds</text>
+  <text class="s" x="455" y="152" text-anchor="middle">level = max(level, lunarMax × moon)</text>
+  <text class="s" x="455" y="168" text-anchor="middle">level ×= master × acclimation × thermal</text>
+  <text class="s" x="455" y="184" text-anchor="middle">lightning flash → 100 %</text>
+  <text class="s" x="455" y="212" text-anchor="middle">slew limiter (max %/s)</text>
+  <text class="s" x="455" y="228" text-anchor="middle">thermal shutdown latch</text>
+  <text class="s" x="455" y="256" text-anchor="middle">fallback level while time is unknown</text>
+  <text class="s" x="455" y="284" text-anchor="middle">relay on when any channel &gt; 0,</text>
+  <text class="s" x="455" y="300" text-anchor="middle">off after a delay</text>
+  <text class="s" x="455" y="328" text-anchor="middle">preview: replays the whole day in N s</text>
+  <text class="s" x="455" y="344" text-anchor="middle">status JSON for the UI / API</text>
 
-  <!-- ===== outputs (right) ===== -->
-  <rect class="box acc" x="660" y="122" width="270" height="96"/>
-  <text class="t h" x="795" y="146" text-anchor="middle">Channels</text>
-  <text class="s" x="795" y="164" text-anchor="middle">LEDC PWM, 100 Hz – 3 kHz, 8–14 bit</text>
-  <text class="s" x="795" y="180" text-anchor="middle">0 % → duty 0 · (0..100] → [min..max] via gamma</text>
-  <text class="s" x="795" y="196" text-anchor="middle">per-channel invert for open-collector drive</text>
-  <text class="s" x="795" y="210" text-anchor="middle">unused pins parked at "off"</text>
+  <!-- ===== right column: outputs ===== -->
+  <rect class="box acc" x="660" y="60" width="270" height="96"/>
+  <text class="t h" x="795" y="84" text-anchor="middle">Channels</text>
+  <text class="s" x="795" y="102" text-anchor="middle">LEDC PWM, 100 Hz – 3 kHz, 8–14 bit</text>
+  <text class="s" x="795" y="118" text-anchor="middle">0 % → duty 0 · (0..100] → [min..max] via gamma</text>
+  <text class="s" x="795" y="134" text-anchor="middle">per-channel invert for open-collector drive</text>
+  <text class="s" x="795" y="150" text-anchor="middle">unused pins parked at "off"</text>
 
-  <rect class="box io acc" x="660" y="246" width="270" height="56"/>
-  <text class="t h" x="795" y="270" text-anchor="middle">Mean Well drivers</text>
-  <text class="s" x="795" y="288" text-anchor="middle">DIM+ / DIM-  (3-in-1, 10 V PWM)  × up to 8</text>
+  <rect class="box io acc" x="660" y="184" width="270" height="56"/>
+  <text class="t h" x="795" y="208" text-anchor="middle">Mean Well drivers</text>
+  <text class="s" x="795" y="228" text-anchor="middle">DIM+ / DIM-  (3-in-1, 10 V PWM)  × up to 8</text>
 
-  <rect class="box io" x="660" y="322" width="270" height="44"/>
-  <text class="t h" x="795" y="341" text-anchor="middle">Relay / SSR (optional)</text>
-  <text class="s" x="795" y="357" text-anchor="middle">true off for HLG-B drivers that stop at ~10 %</text>
+  <rect class="box io" x="660" y="268" width="270" height="44"/>
+  <text class="t h" x="795" y="288" text-anchor="middle">Relay / SSR (optional)</text>
+  <text class="s" x="795" y="305" text-anchor="middle">true off for HLG-B drivers that stop at ~10 %</text>
 
-  <!-- ===== connectivity (bottom) ===== -->
-  <rect class="box" x="330" y="412" width="140" height="72"/>
-  <text class="t h" x="400" y="434" text-anchor="middle">WebUi</text>
-  <text class="s" x="400" y="451" text-anchor="middle">static UI (LittleFS)</text>
-  <text class="s" x="400" y="465" text-anchor="middle">REST /api · OTA</text>
+  <!-- ===== bottom row: connectivity ===== -->
+  <rect class="box" x="60" y="450" width="140" height="70"/>
+  <text class="t h" x="130" y="472" text-anchor="middle">WebUi</text>
+  <text class="s" x="130" y="490" text-anchor="middle">static UI (LittleFS)</text>
+  <text class="s" x="130" y="504" text-anchor="middle">REST /api · OTA</text>
 
-  <rect class="box" x="490" y="412" width="150" height="72"/>
-  <text class="t h" x="565" y="434" text-anchor="middle">WifiManager</text>
-  <text class="s" x="565" y="451" text-anchor="middle">AP first → station</text>
-  <text class="s" x="565" y="465" text-anchor="middle">captive DNS · mDNS · OTA</text>
+  <rect class="box" x="220" y="450" width="150" height="70"/>
+  <text class="t h" x="295" y="472" text-anchor="middle">WifiManager</text>
+  <text class="s" x="295" y="490" text-anchor="middle">AP first → station</text>
+  <text class="s" x="295" y="504" text-anchor="middle">captive DNS · mDNS · OTA</text>
 
-  <rect class="box" x="660" y="412" width="130" height="72"/>
-  <text class="t h" x="725" y="434" text-anchor="middle">BleProv</text>
-  <text class="s" x="725" y="451" text-anchor="middle">optional GATT</text>
-  <text class="s" x="725" y="465" text-anchor="middle">Wi-Fi credentials</text>
+  <rect class="box" x="390" y="450" width="120" height="70"/>
+  <text class="t h" x="450" y="472" text-anchor="middle">BleProv</text>
+  <text class="s" x="450" y="490" text-anchor="middle">optional GATT</text>
+  <text class="s" x="450" y="504" text-anchor="middle">Wi-Fi credentials</text>
 
-  <rect class="box" x="810" y="412" width="120" height="72"/>
-  <text class="t h" x="870" y="434" text-anchor="middle">main.cpp</text>
-  <text class="s" x="870" y="451" text-anchor="middle">boot · loop</text>
-  <text class="s" x="870" y="465" text-anchor="middle">button · status LED</text>
+  <rect class="box" x="530" y="450" width="130" height="70"/>
+  <text class="t h" x="595" y="472" text-anchor="middle">main.cpp</text>
+  <text class="s" x="595" y="490" text-anchor="middle">boot · polls every</text>
+  <text class="s" x="595" y="504" text-anchor="middle">subsystem from loop()</text>
 
-  <!-- ===== flows ===== -->
-  <!-- telemetry / level flow (accent) -->
-  <path class="flow" d="M230,153 L330,185"/>
-  <path class="flow" d="M230,235 L330,235"/>
-  <path class="flow" d="M230,317 L330,285"/>
-  <path class="flow" d="M580,170 L660,170"/>
-  <path class="flow" d="M795,218 L795,246"/>
-  <path class="flow" d="M580,330 L660,344"/>
-  <!-- time -->
-  <path class="link" d="M230,71 L330,150"/>
-  <text class="lbl" x="262" y="98">minute of day</text>
-  <!-- config read by engine / channels -->
-  <path class="link" d="M230,399 C280,399 300,340 330,330"/>
-  <path class="link" d="M130,368 L130,350" opacity="0"/>
-  <path class="link" d="M230,385 C440,385 520,380 660,214" opacity=".55"/>
-  <!-- configuration paths (dashed) -->
-  <path class="cfg" d="M330,448 C250,448 180,450 130,430"/>
-  <path class="cfg" d="M360,412 C300,330 280,250 230,190"/>
-  <path class="cfg" d="M420,412 L440,348"/>
-  <path class="cfg" d="M565,412 L565,400 C565,392 420,392 240,392" opacity=".8"/>
-  <path class="cfg" d="M725,412 L725,400 C725,390 600,392 240,396" opacity=".6"/>
-  <path class="cfg" d="M870,412 L870,380 L580,350" opacity=".5"/>
+  <text class="lbl" x="680" y="486">Button: hold 5 s = access point,</text>
+  <text class="lbl" x="680" y="501">15 s = factory reset. Status LED blinks the Wi-Fi state.</text>
 
-  <!-- persistence note -->
-  <text class="lbl" x="30" y="455">Config + Schedule persist as JSON on LittleFS;</text>
-  <text class="lbl" x="30" y="470">WebUi queues writes and the main loop applies them.</text>
+  <!-- ===== arrows: inputs into the engine (straight horizontals) ===== -->
+  <path class="link" d="M260,68 L330,68"/>
+  <path class="flow" d="M260,138 L330,138"/>
+  <path class="flow" d="M260,208 L330,208"/>
+  <path class="flow" d="M260,278 L330,278"/>
+  <path class="link" d="M260,348 L330,348"/>
+  <text class="lbl" x="295" y="364" text-anchor="middle">minute of day</text>
+
+  <!-- ===== arrows: engine to outputs ===== -->
+  <path class="flow" d="M580,108 L660,108"/>
+  <path class="flow" d="M795,156 L795,184"/>
+  <path class="flow" d="M580,290 L660,290"/>
+
+  <!-- Config read by Channels: over the top, nothing else up there -->
+  <path class="link" d="M160,40 L160,20 L795,20 L795,60"/>
+  <text class="lbl" x="478" y="16" text-anchor="middle">pins · frequency · min / max · gamma · invert</text>
+
+  <!-- ===== configuration paths (dashed) ===== -->
+  <!-- WebUi -> Config and Schedule via a bus on the far left -->
+  <path class="bus" d="M60,470 L40,470 L40,68"/>
+  <path class="cfg" d="M40,68 L60,68"/>
+  <path class="cfg" d="M40,138 L60,138"/>
+  <!-- WebUi -> Engine (mode, manual levels, preview, storm) via the lane under the engine -->
+  <path class="cfg" d="M130,450 L130,412 L455,412 L455,376"/>
+  <text class="lbl" x="292" y="406" text-anchor="middle">mode · manual levels · preview · storm</text>
+  <!-- WebUi and BleProv -> WifiManager (credentials, start AP) -->
+  <path class="cfg" d="M200,485 L220,485"/>
+  <path class="cfg" d="M390,485 L370,485"/>
 
   <!-- legend -->
-  <g transform="translate(30,492)">
-    <line x1="0" y1="8" x2="36" y2="8" class="flow"/>
-    <text class="s" x="44" y="12">level computation path</text>
-    <line x1="190" y1="8" x2="226" y2="8" class="link"/>
-    <text class="s" x="234" y="12">data read</text>
-    <line x1="320" y1="8" x2="356" y2="8" class="cfg"/>
-    <text class="s" x="364" y="12">configuration / control (web, BLE, button)</text>
+  <g transform="translate(60,540)">
+    <line x1="0" y1="0" x2="36" y2="0" class="flow"/>
+    <text class="s" x="44" y="4">level computation path</text>
+    <line x1="190" y1="0" x2="226" y2="0" class="link"/>
+    <text class="s" x="234" y="4">data read</text>
+    <line x1="320" y1="0" x2="356" y2="0" class="cfg"/>
+    <text class="s" x="364" y="4">configuration / control (web UI, BLE)</text>
   </g>
 </svg>
