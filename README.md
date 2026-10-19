@@ -63,8 +63,8 @@ endpoint under `/api/`. See [docs/WEB_UI.md](docs/WEB_UI.md).
   network is lost, mDNS (`ledctrl.local`), optional BLE provisioning build
 - REST API for everything (Home Assistant RESTful integration, Node-RED, curl), browser
   OTA for firmware and UI, ArduinoOTA, one-file backup and restore
-- Builds for classic ESP32, ESP32-C3 and ESP32-S3; Node unit tests for the UI's curve
-  math
+- Builds for the Seeed XIAO ESP32-C3 (one board per driver), classic ESP32, ESP32-C3
+  DevKit and ESP32-S3; Node unit tests for the UI's curve math
 
 See [docs/FEATURES.md](docs/FEATURES.md) for the market survey behind these choices and
 the ideas not implemented yet.

@@ -84,12 +84,21 @@ non-inverted drive, but the firmware's Invert flag makes options A–C just as g
 | Target | PWM channels (GPIO) | 1-Wire | Button | Status LED |
 |---|---|---|---|---|
 | esp32dev (WROOM-32) | 25, 26, 27, 14, 32, 33, 13, 23 | 4 | 0 (BOOT) | 2 (on-board LED) |
+| **xiao-c3** (Seeed XIAO ESP32-C3) | 3, 4, 5, 6, 7, 10 (D1–D5, D10); 1 channel enabled by default | 21 (D6) | 9 (BOOT) | none; suggested relay pin D7 (GPIO 20) |
 | esp32-c3-devkitm-1 | 3, 4, 5, 6, 7, 10 | 1 | 9 (BOOT) | on-board RGB LED (GPIO 8) |
 | esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | on-board RGB LED (GPIO 48) |
 
 Pins are only defaults and can be changed from the web UI. Avoid GPIO 0, 2, 12, 15 on
 the classic ESP32 for outputs (boot strapping pins) and GPIO 34–39 (input only). On the
 C3 avoid GPIO 2, 8, 9 (strapping) and 18/19 (USB).
+
+### XIAO ESP32-C3 build (one board per driver)
+
+With a board at each light bar, each XIAO runs one channel: GPIO 3 (**D1**) drives the
+transistor stage, **D6** (GPIO 21) takes the DS18B20, and **D7** (GPIO 20) is free for a
+relay. Power it from the 5 V pad or USB-C. Attach the u.FL antenna; the board has no
+PCB antenna. There is no user LED, so Wi-Fi state is only visible in the UI and serial
+log; the BOOT button still gives the 5 s access-point and 15 s factory-reset gestures.
 
 ## Temperature sensor
 

@@ -17,7 +17,7 @@ void configDefaults() {
   cfg.pwmFreq = 1000;
   cfg.pwmBits = 12;
   const int8_t pins[] = DEFAULT_CH_PINS;
-  cfg.numChannels = 4;
+  cfg.numChannels = DEFAULT_NUM_CHANNELS;
   for (uint8_t i = 0; i < MAX_CHANNELS; i++) {
     ChannelCfg& c = cfg.ch[i];
     snprintf(c.name, sizeof(c.name), "Channel %u", i + 1);

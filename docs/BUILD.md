@@ -16,6 +16,7 @@
 |---|---|---|
 | `esp32dev` (default) | classic ESP32 WROOM-32 | 8 channels |
 | `esp32dev-ble` | same | adds NimBLE Wi-Fi provisioning (+250 KB flash) |
+| `xiao-c3` | Seeed Studio XIAO ESP32-C3 | one board per driver: 1 channel enabled by default, 6 available, USB CDC console |
 | `esp32-c3` | ESP32-C3 DevKitM-1 | 6 channels, USB CDC console |
 | `esp32-s3` | ESP32-S3 DevKitC-1 | 8 channels, USB CDC console |
 
@@ -33,7 +34,7 @@ the LittleFS partition. Without it the root URL shows a hint page and the API st
 
 ### Windows note
 
-The RISC-V toolchain installer used by the `esp32-c3` env refuses to run from Git Bash /
+The RISC-V toolchain installer used by the `xiao-c3` and `esp32-c3` envs refuses to run from Git Bash /
 MSYS ("MSys/Mingw is not supported"). Run PlatformIO from PowerShell, cmd or the VS Code
 PlatformIO toolbar for that target. The Xtensa targets build from any shell.
 
@@ -56,8 +57,13 @@ and the System tab. Bump it before publishing a release binary.
 
 ## Tests
 
-The firmware itself has no on-host tests; `pio run -e esp32dev -e esp32dev-ble -e esp32-c3 -e esp32-s3`
-is the compile check for every target.
+The firmware itself has no on-host tests; the compile check for every target is
+
+```sh
+pio run -e esp32dev -e esp32dev-ble -e xiao-c3 -e esp32-c3 -e esp32-s3
+```
+
+(from PowerShell on Windows, see the note above).
 
 The web UI's pure helpers (schedule interpolation, time formatting, HTML escaping) are
 unit-tested with Node.js only, no npm packages:
