@@ -38,11 +38,7 @@ The ESP32 outputs 3.3 V, and the driver interprets 3.3 V as ~33 %. Three proven 
 
 ### A. Open-collector / open-drain (simplest, 1 transistor per channel)
 
-```
-ESP32 GPIO ──[1 kΩ]──┤ B   NPN (2N2222 / BC547)  or  2N7000 MOSFET gate (no resistor needed)
-                      E ──────────────┬──── DIM-  (and ESP32 GND)
-                      C ──────────────┴──── DIM+
-```
+![Open-collector stage: the GPIO drives an NPN through a 1 kΩ base resistor with a 10 kΩ boot pull-up to 3.3 V; the collector goes to DIM+, the emitter to DIM- and ESP32 ground; inside the driver a 100 µA source pulls DIM+ to about 10 V when the transistor is off. Waveforms show the GPIO high 25 % of the time and DIM+ high 75 % with a slow rising edge.](images/open_collector.svg)
 
 The driver's own ~100 µA current source pulls DIM+ to ~10 V when the transistor is off and
 the transistor shorts it to 0 V when on. The driver sees a 10 V PWM signal **inverted**

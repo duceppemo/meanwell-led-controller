@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <title>Open-collector drive of a Mean Well DIM+/DIM- input</title>
+  <desc>A XIAO ESP32-C3 GPIO drives an NPN transistor through a 1 kΩ base resistor; a 10 kΩ resistor from base to 3.3 V keeps the transistor on while the GPIO floats at boot. The collector goes to DIM+ and the emitter to DIM- and ESP32 ground. Inside the driver a 100 µA current source pulls DIM+ to about 10 V when the transistor is off. The waveform strip shows the GPIO signal and the resulting inverted DIM+ signal with its slow rising edge.</desc>
+  <defs>
+    <style>
+      .box{fill:#ffffff;stroke:#8c959f;stroke-width:1.2}
+      .inner{fill:#f6f8fa;stroke:#d0d7de;stroke-width:1}
+      .t{fill:#1f2328}
+      .h{font-weight:600;font-size:14px}
+      .s{fill:#57606a;font-size:11px}
+      .pin{fill:#1f2328;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .w{stroke:#1f2328;stroke-width:1.6;fill:none;stroke-linejoin:round}
+      .logic{stroke:#d4a017;stroke-width:2;fill:none;stroke-linejoin:round}
+      .dim{stroke:#8250df;stroke-width:2;fill:none;stroke-linejoin:round}
+      .node{fill:#1f2328}
+      .note{fill:#57606a;font-size:11px;font-style:italic}
+      .grid{stroke:#d0d7de;stroke-width:1;stroke-dasharray:3 3}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="#f6f8fa" rx="12"/>
+
+  <!-- ================= schematic ================= -->
+
+  <!-- ESP32 -->
+  <rect class="box" x="40" y="70" width="180" height="240" rx="8"/>
+  <text class="t h" x="130" y="96" text-anchor="middle">XIAO ESP32-C3</text>
+  <text class="s" x="130" y="112" text-anchor="middle">(any ESP32 GPIO works)</text>
+  <text class="pin" x="212" y="134" text-anchor="end">3V3</text>
+  <text class="pin" x="212" y="204" text-anchor="end">D1 / GPIO3</text>
+  <text class="pin" x="212" y="284" text-anchor="end">GND</text>
+
+  <!-- 3.3 V to R2 -->
+  <path class="logic" d="M220,130 L380,130 L380,142"/>
+  <!-- R2 boot pull-up (vertical zigzag) -->
+  <polyline class="w" points="380,142 380,147 371,152 389,159 371,166 389,173 371,180 380,185 380,200"/>
+  <text class="t" x="364" y="160" text-anchor="end" font-weight="600" font-size="12">R2  10 kΩ</text>
+  <text class="s" x="364" y="174" text-anchor="end">boot pull-up</text>
+
+  <!-- GPIO -> R1 -> base -->
+  <path class="logic" d="M220,200 L268,200"/>
+  <polyline class="w" points="268,200 273,200 278,191 286,209 294,191 302,209 310,191 318,209 323,200 328,200"/>
+  <text class="t" x="298" y="228" text-anchor="middle" font-weight="600" font-size="12">R1  1 kΩ</text>
+  <path class="w" d="M328,200 L446,200"/>
+  <circle class="node" cx="380" cy="200" r="3"/>
+
+  <!-- Q1 NPN -->
+  <circle cx="464" cy="200" r="30" fill="#ffffff" stroke="#1f2328" stroke-width="1.6"/>
+  <path class="w" d="M446,182 L446,218" stroke-width="2.4"/>
+  <path class="w" d="M446,192 L472,176 L472,150"/>
+  <path class="w" d="M446,208 L472,224 L472,280"/>
+  <polygon points="473,225 461,224 466,214" fill="#1f2328"/>
+  <text class="t" x="502" y="196" font-weight="600" font-size="12">Q1</text>
+  <text class="s" x="502" y="210">2N2222 / BC547</text>
+  <text class="s" x="502" y="224">(or 2N7000 MOSFET)</text>
+
+  <!-- collector -> DIM+ -->
+  <path class="dim" d="M472,150 L700,150"/>
+  <text class="note" x="586" y="122" text-anchor="middle">Q1 off → DIM+ pulled to ≈10 V → light on</text>
+  <text class="note" x="586" y="138" text-anchor="middle">Q1 on → DIM+ shorted to 0 V → light off</text>
+
+  <!-- emitter / ground -> DIM- -->
+  <path class="w" d="M220,280 L700,280"/>
+  <circle class="node" cx="472" cy="280" r="3"/>
+  <text class="s" x="586" y="298" text-anchor="middle">ESP32 GND = DIM-  (never the LED output −V)</text>
+
+  <!-- Mean Well driver -->
+  <rect class="box" x="700" y="56" width="220" height="254" rx="8"/>
+  <text class="t h" x="810" y="78" text-anchor="middle">Mean Well driver</text>
+  <text class="s" x="810" y="93" text-anchor="middle">XLG-…-AB · HLG-…-C-B</text>
+  <text class="pin" x="708" y="144">DIM+</text>
+  <text class="pin" x="708" y="274">DIM−</text>
+  <!-- internal dimming circuit -->
+  <rect class="inner" x="760" y="104" width="148" height="190" rx="6"/>
+  <text class="s" x="834" y="120" text-anchor="middle">internal, isolated</text>
+  <text class="pin" x="790" y="138" text-anchor="middle">≈10 V</text>
+  <path class="w" d="M790,142 L790,160"/>
+  <!-- current source: circle with arrow -->
+  <circle cx="790" cy="176" r="15" fill="#ffffff" stroke="#1f2328" stroke-width="1.6"/>
+  <path class="w" d="M790,166 L790,186"/>
+  <polygon points="790,190 785,181 795,181" fill="#1f2328"/>
+  <text class="t" x="812" y="174" font-weight="600" font-size="12">100 µA</text>
+  <text class="s" x="812" y="188">source</text>
+  <path class="w" d="M790,191 L790,214"/>
+  <!-- DIM+ joins the source output -->
+  <path class="dim" d="M700,150 L740,150 L740,214 L790,214"/>
+  <circle class="node" cx="790" cy="214" r="3"/>
+  <path class="w" d="M790,214 L838,214"/>
+  <rect x="838" y="200" width="62" height="28" rx="4" fill="#ffffff" stroke="#1f2328" stroke-width="1.2"/>
+  <text class="s" x="869" y="218" text-anchor="middle">detector</text>
+  <path class="w" d="M869,228 L869,280 L700,280"/>
+
+  <!-- ================= waveforms ================= -->
+  <rect class="box" x="40" y="336" width="580" height="180" rx="8"/>
+  <text class="t h" x="56" y="358">Signals at 75 % brightness, Invert ticked</text>
+
+  <text class="pin" x="56" y="398">GPIO</text>
+  <text class="s" x="56" y="412">0 / 3.3 V</text>
+  <text class="pin" x="56" y="458">DIM+</text>
+  <text class="s" x="56" y="472">0 / ≈10 V</text>
+
+  <!-- period grid: 3 periods of 160 px from x=140 -->
+  <path class="grid" d="M140,372 L140,500 M300,372 L300,500 M460,372 L460,500 M600,372 L600,500"/>
+
+  <!-- GPIO: high 25 % of each period (40 px) -->
+  <path class="logic" d="M140,415 L140,385 L180,385 L180,415 L300,415 L300,385 L340,385 L340,415 L460,415 L460,385 L500,385 L500,415 L600,415"/>
+  <!-- DIM+: low while GPIO high (fast fall), slow RC rise when Q1 releases -->
+  <path class="dim" d="M140,440 L140,490 L180,490 C186,458 200,442 230,440 L300,440 L300,490 L340,490 C346,458 360,442 390,440 L460,440 L460,490 L500,490 C506,458 520,442 550,440 L600,440"/>
+
+  <text class="note" x="160" y="378" text-anchor="middle">25 %</text>
+  <text class="note" x="240" y="434" text-anchor="middle">75 % high</text>
+  <text class="note" x="205" y="506" text-anchor="middle">slow rise: only 100 µA</text>
+
+  <!-- ================= parts / settings ================= -->
+  <rect class="box" x="640" y="336" width="280" height="180" rx="8"/>
+  <text class="t h" x="656" y="358">Per channel</text>
+  <text class="t" x="656" y="382" font-size="12"><tspan font-weight="600">Q1</tspan>  2N2222 or BC547 NPN</text>
+  <text class="s" x="656" y="396">     or 2N7000 N-MOSFET (R1 → 100 Ω)</text>
+  <text class="t" x="656" y="418" font-size="12"><tspan font-weight="600">R1</tspan>  1 kΩ base resistor</text>
+  <text class="t" x="656" y="438" font-size="12"><tspan font-weight="600">R2</tspan>  10 kΩ base to 3.3 V</text>
+  <text class="s" x="656" y="452">     driver at 0 % while the GPIO floats</text>
+  <text class="t h" x="656" y="480" font-size="13">In Settings → Channels</text>
+  <text class="s" x="656" y="496">tick <tspan font-weight="600" fill="#1f2328">Invert</tspan>, keep PWM ≤ 1 kHz,</text>
+  <text class="s" x="656" y="510">Min % = 8 (XLG) or 6 (HLG-C)</text>
+</svg>
