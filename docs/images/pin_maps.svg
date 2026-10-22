@@ -1,0 +1,465 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1209" viewBox="0 0 960 1209" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+<title>Default pin maps of the supported boards</title>
+<desc>Header pinouts of the Seeed XIAO ESP32-C3, ESP32-C3-DevKitM-1, ESP32-DevKitC V4 and ESP32-S3-DevKitC-1, each pin tagged with its default role in this firmware: PWM channels, 1-Wire, button, LEDs, UART, and pins to avoid (strapping, flash, USB, input only, PSRAM).</desc>
+<style>
+  .panel{fill:#ffffff;stroke:#8c959f;stroke-width:1.2}
+  .h{font-weight:600;font-size:15px;fill:#1f2328}
+  .env{font-size:11px;fill:#0969da;font-family:ui-monospace, Consolas, monospace}
+  .pn{font-size:11px;fill:#1f2328;font-family:ui-monospace, Consolas, monospace}
+  .chip{font-size:10px;font-weight:600}
+  .mod{font-size:8px;fill:#424a53;font-weight:600}
+  .note{font-size:11px;fill:#57606a;font-style:italic}
+  .s{font-size:11px;fill:#57606a}
+</style>
+<rect width="960" height="1209" fill="#f6f8fa" rx="12"/>
+<text class="h" x="25" y="38" font-size="17">Default pin maps</text>
+<text class="s" x="190" y="38">header order as printed on each board; tags show the firmware default for that pin (all editable in Settings)</text>
+<rect class="panel" x="25" y="64" width="445" height="445" rx="8"/>
+<text class="h" x="41" y="88">Seeed XIAO ESP32-C3</text>
+<text class="env" x="454" y="88" text-anchor="end">env: xiao-c3</text>
+<rect x="208.5" y="114" width="78" height="197" rx="6" fill="#1f5135" stroke="#163d28" stroke-width="1.2"/>
+<rect x="231.5" y="106" width="32" height="14" rx="3" fill="#afb8c1" stroke="#6e7781"/>
+<rect x="220.5" y="126" width="54" height="26" rx="2" fill="#d0d7de" stroke="#8c959f"/>
+<text class="mod" x="247.5" y="143" text-anchor="middle">ESP32-C3</text>
+<circle cx="215.5" cy="160" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="164" text-anchor="end">D0·IO2</text>
+<rect x="68.7" y="152.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="100.6" y="163.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="215.5" cy="179" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="183" text-anchor="end">D1·IO3</text>
+<rect x="105.9" y="171.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="182.8" text-anchor="middle" fill="#7a5a00">CH1</text>
+<circle cx="215.5" cy="198" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="202" text-anchor="end">D2·IO4</text>
+<rect x="105.9" y="190.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="201.8" text-anchor="middle" fill="#7a5a00">CH2</text>
+<circle cx="215.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="221" text-anchor="end">D3·IO5</text>
+<rect x="105.9" y="209.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="220.8" text-anchor="middle" fill="#7a5a00">CH3</text>
+<circle cx="215.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="240" text-anchor="end">D4·IO6</text>
+<rect x="105.9" y="228.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="239.8" text-anchor="middle" fill="#7a5a00">CH4</text>
+<circle cx="215.5" cy="255" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="259" text-anchor="end">D5·IO7</text>
+<rect x="105.9" y="247.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="258.8" text-anchor="middle" fill="#7a5a00">CH5</text>
+<circle cx="215.5" cy="274" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="278" text-anchor="end">D6·IO21</text>
+<rect x="87.3" y="266.5" width="45.2" height="15" rx="7.5" fill="#ddf4ff" stroke="#0969da" stroke-width="1"/>
+<text class="chip" x="109.9" y="277.8" text-anchor="middle" fill="#0550ae">1-Wire</text>
+<circle cx="279.5" cy="160" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="164" fill="#cf222e" font-weight="600">5V</text>
+<circle cx="279.5" cy="179" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="183" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="279.5" cy="198" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="202" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="279.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="221">D10·IO10</text>
+<rect x="362.5" y="209.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="375.8" y="220.8" text-anchor="middle" fill="#7a5a00">CH6</text>
+<circle cx="279.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="240">D9·IO9</text>
+<rect x="362.5" y="228.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="391.3" y="239.8" text-anchor="middle" fill="#424a53">BOOT btn</text>
+<circle cx="279.5" cy="255" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="259">D8·IO8</text>
+<rect x="362.5" y="247.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="394.4" y="258.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="279.5" cy="274" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="278">D7·IO20</text>
+<rect x="362.5" y="266.5" width="45.2" height="15" rx="7.5" fill="#fbefff" stroke="#8250df" stroke-width="1"/>
+<text class="chip" x="385.1" y="277.8" text-anchor="middle" fill="#6639ba">relay?</text>
+<text class="note" x="41" y="333">Front view, USB-C up. One channel (D1) enabled by default.</text>
+<text class="note" x="41" y="348">No user LED. Attach the u.FL antenna.</text>
+<rect class="panel" x="490" y="64" width="445" height="445" rx="8"/>
+<text class="h" x="506" y="88">ESP32-C3-DevKitM-1</text>
+<text class="env" x="919" y="88" text-anchor="end">env: esp32-c3</text>
+<rect x="673.5" y="114" width="78" height="349" rx="6" fill="#1f5135" stroke="#163d28" stroke-width="1.2"/>
+<rect x="681.5" y="120" width="62" height="34" rx="2" fill="#d0d7de" stroke="#8c959f"/>
+<path d="M687.5,127 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8" fill="none" stroke="#8c959f" stroke-width="1.2"/>
+<text class="mod" x="712.5" y="148" text-anchor="middle">C3-MINI-1</text>
+<rect x="696.5" y="455" width="32" height="14" rx="3" fill="#afb8c1" stroke="#6e7781"/>
+<circle cx="680.5" cy="160" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="164" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="680.5" cy="179" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="183" text-anchor="end" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="680.5" cy="198" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="202" text-anchor="end" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="680.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="221" text-anchor="end">IO2</text>
+<rect x="533.7" y="209.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="565.6" y="220.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="680.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="240" text-anchor="end">IO3</text>
+<rect x="570.9" y="228.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="239.8" text-anchor="middle" fill="#7a5a00">CH1</text>
+<circle cx="680.5" cy="255" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="259" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="680.5" cy="274" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="278" text-anchor="end" fill="#57606a" font-weight="600">RST</text>
+<circle cx="680.5" cy="293" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="297" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="680.5" cy="312" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="316" text-anchor="end">IO0</text>
+<circle cx="680.5" cy="331" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="335" text-anchor="end">IO1</text>
+<rect x="552.3" y="323.5" width="45.2" height="15" rx="7.5" fill="#ddf4ff" stroke="#0969da" stroke-width="1"/>
+<text class="chip" x="574.9" y="334.8" text-anchor="middle" fill="#0550ae">1-Wire</text>
+<circle cx="680.5" cy="350" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="354" text-anchor="end">IO10</text>
+<rect x="570.9" y="342.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="353.8" text-anchor="middle" fill="#7a5a00">CH6</text>
+<circle cx="680.5" cy="369" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="373" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="680.5" cy="388" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="392" text-anchor="end" fill="#cf222e" font-weight="600">5V</text>
+<circle cx="680.5" cy="407" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="411" text-anchor="end" fill="#cf222e" font-weight="600">5V</text>
+<circle cx="680.5" cy="426" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="430" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="744.5" cy="160" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="164" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="744.5" cy="179" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="183">TX·IO21</text>
+<rect x="827.5" y="171.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="843.9" y="182.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="744.5" cy="198" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="202">RX·IO20</text>
+<rect x="827.5" y="190.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="843.9" y="201.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="744.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="221" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="744.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="240">IO9</text>
+<rect x="827.5" y="228.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="856.3" y="239.8" text-anchor="middle" fill="#424a53">BOOT btn</text>
+<circle cx="744.5" cy="255" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="259">IO8</text>
+<rect x="827.5" y="247.5" width="51.4" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="853.2" y="258.8" text-anchor="middle" fill="#424a53">RGB LED</text>
+<circle cx="744.5" cy="274" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="278" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="744.5" cy="293" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="297">IO7</text>
+<rect x="827.5" y="285.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="840.8" y="296.8" text-anchor="middle" fill="#7a5a00">CH5</text>
+<circle cx="744.5" cy="312" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="316">IO6</text>
+<rect x="827.5" y="304.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="840.8" y="315.8" text-anchor="middle" fill="#7a5a00">CH4</text>
+<circle cx="744.5" cy="331" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="335">IO5</text>
+<rect x="827.5" y="323.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="840.8" y="334.8" text-anchor="middle" fill="#7a5a00">CH3</text>
+<circle cx="744.5" cy="350" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="354">IO4</text>
+<rect x="827.5" y="342.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="840.8" y="353.8" text-anchor="middle" fill="#7a5a00">CH2</text>
+<circle cx="744.5" cy="369" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="373" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="744.5" cy="388" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="392">IO18</text>
+<rect x="827.5" y="380.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="391.8" text-anchor="middle" fill="#a40e26">USB D−</text>
+<circle cx="744.5" cy="407" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="411">IO19</text>
+<rect x="827.5" y="399.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="410.8" text-anchor="middle" fill="#a40e26">USB D+</text>
+<circle cx="744.5" cy="426" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="430" fill="#1f2328" font-weight="600">GND</text>
+<text class="note" x="506" y="485">Top view, module up. J1 left, J3 right.</text>
+<text class="note" x="506" y="500">IO8 (RGB LED) and IO9 (BOOT) are also strapping pins.</text>
+<rect class="panel" x="25" y="540" width="445" height="593" rx="8"/>
+<text class="h" x="41" y="564">ESP32-DevKitC V4 (WROOM-32)</text>
+<text class="env" x="454" y="564" text-anchor="end">env: esp32dev</text>
+<rect x="208.5" y="590" width="78" height="425" rx="6" fill="#1f5135" stroke="#163d28" stroke-width="1.2"/>
+<rect x="216.5" y="596" width="62" height="34" rx="2" fill="#d0d7de" stroke="#8c959f"/>
+<path d="M222.5,603 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8" fill="none" stroke="#8c959f" stroke-width="1.2"/>
+<text class="mod" x="247.5" y="624" text-anchor="middle">WROOM-32</text>
+<rect x="231.5" y="1007" width="32" height="14" rx="3" fill="#afb8c1" stroke="#6e7781"/>
+<circle cx="215.5" cy="636" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="640" text-anchor="end" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="215.5" cy="655" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="659" text-anchor="end" fill="#57606a" font-weight="600">EN</text>
+<circle cx="215.5" cy="674" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="678" text-anchor="end">VP·IO36</text>
+<rect x="62.5" y="666.5" width="70.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="97.5" y="677.8" text-anchor="middle" fill="#a40e26">input only</text>
+<circle cx="215.5" cy="693" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="697" text-anchor="end">VN·IO39</text>
+<rect x="62.5" y="685.5" width="70.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="97.5" y="696.8" text-anchor="middle" fill="#a40e26">input only</text>
+<circle cx="215.5" cy="712" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="716" text-anchor="end">IO34</text>
+<rect x="62.5" y="704.5" width="70.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="97.5" y="715.8" text-anchor="middle" fill="#a40e26">input only</text>
+<circle cx="215.5" cy="731" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="735" text-anchor="end">IO35</text>
+<rect x="62.5" y="723.5" width="70.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="97.5" y="734.8" text-anchor="middle" fill="#a40e26">input only</text>
+<circle cx="215.5" cy="750" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="754" text-anchor="end">IO32</text>
+<rect x="105.9" y="742.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="753.8" text-anchor="middle" fill="#7a5a00">CH5</text>
+<circle cx="215.5" cy="769" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="773" text-anchor="end">IO33</text>
+<rect x="105.9" y="761.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="772.8" text-anchor="middle" fill="#7a5a00">CH6</text>
+<circle cx="215.5" cy="788" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="792" text-anchor="end">IO25</text>
+<rect x="105.9" y="780.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="791.8" text-anchor="middle" fill="#7a5a00">CH1</text>
+<circle cx="215.5" cy="807" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="811" text-anchor="end">IO26</text>
+<rect x="105.9" y="799.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="810.8" text-anchor="middle" fill="#7a5a00">CH2</text>
+<circle cx="215.5" cy="826" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="830" text-anchor="end">IO27</text>
+<rect x="105.9" y="818.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="829.8" text-anchor="middle" fill="#7a5a00">CH3</text>
+<circle cx="215.5" cy="845" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="849" text-anchor="end">IO14</text>
+<rect x="105.9" y="837.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="848.8" text-anchor="middle" fill="#7a5a00">CH4</text>
+<circle cx="215.5" cy="864" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="868" text-anchor="end">IO12</text>
+<rect x="68.7" y="856.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="100.6" y="867.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="215.5" cy="883" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="887" text-anchor="end" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="215.5" cy="902" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="906" text-anchor="end">IO13</text>
+<rect x="105.9" y="894.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="119.2" y="905.8" text-anchor="middle" fill="#7a5a00">CH7</text>
+<circle cx="215.5" cy="921" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="925" text-anchor="end">D2·IO9</text>
+<rect x="93.5" y="913.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="113.0" y="924.8" text-anchor="middle" fill="#a40e26">flash</text>
+<circle cx="215.5" cy="940" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="944" text-anchor="end">D3·IO10</text>
+<rect x="93.5" y="932.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="113.0" y="943.8" text-anchor="middle" fill="#a40e26">flash</text>
+<circle cx="215.5" cy="959" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="963" text-anchor="end">CMD·IO11</text>
+<rect x="93.5" y="951.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="113.0" y="962.8" text-anchor="middle" fill="#a40e26">flash</text>
+<circle cx="215.5" cy="978" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="200.5" y="982" text-anchor="end" fill="#cf222e" font-weight="600">5V</text>
+<circle cx="279.5" cy="636" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="640" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="279.5" cy="655" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="659">IO23</text>
+<rect x="362.5" y="647.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="375.8" y="658.8" text-anchor="middle" fill="#7a5a00">CH8</text>
+<circle cx="279.5" cy="674" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="678">IO22</text>
+<circle cx="279.5" cy="693" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="697">TX·IO1</text>
+<rect x="362.5" y="685.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="378.9" y="696.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="279.5" cy="712" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="716">RX·IO3</text>
+<rect x="362.5" y="704.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="378.9" y="715.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="279.5" cy="731" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="735">IO21</text>
+<circle cx="279.5" cy="750" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="754" fill="#1f2328" font-weight="600">GND</text>
+<circle cx="279.5" cy="769" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="773">IO19</text>
+<circle cx="279.5" cy="788" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="792">IO18</text>
+<circle cx="279.5" cy="807" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="811">IO5</text>
+<circle cx="279.5" cy="826" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="830">IO17</text>
+<circle cx="279.5" cy="845" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="849">IO16</text>
+<circle cx="279.5" cy="864" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="868">IO4</text>
+<rect x="362.5" y="856.5" width="45.2" height="15" rx="7.5" fill="#ddf4ff" stroke="#0969da" stroke-width="1"/>
+<text class="chip" x="385.1" y="867.8" text-anchor="middle" fill="#0550ae">1-Wire</text>
+<circle cx="279.5" cy="883" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="887">IO0</text>
+<rect x="362.5" y="875.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="391.3" y="886.8" text-anchor="middle" fill="#424a53">BOOT btn</text>
+<circle cx="279.5" cy="902" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="906">IO2</text>
+<rect x="362.5" y="894.5" width="70.0" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="397.5" y="905.8" text-anchor="middle" fill="#424a53">status LED</text>
+<circle cx="279.5" cy="921" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="925">IO15</text>
+<rect x="362.5" y="913.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="394.4" y="924.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="279.5" cy="940" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="944">D1·IO8</text>
+<rect x="362.5" y="932.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="382.0" y="943.8" text-anchor="middle" fill="#a40e26">flash</text>
+<circle cx="279.5" cy="959" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="963">D0·IO7</text>
+<rect x="362.5" y="951.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="382.0" y="962.8" text-anchor="middle" fill="#a40e26">flash</text>
+<circle cx="279.5" cy="978" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="294.5" y="982">CLK·IO6</text>
+<rect x="362.5" y="970.5" width="39.0" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="382.0" y="981.8" text-anchor="middle" fill="#a40e26">flash</text>
+<text class="note" x="41" y="1037">Top view, antenna up. J2 left, J3 right.</text>
+<text class="note" x="41" y="1052">30-pin DOIT boards order pins differently:</text>
+<text class="note" x="41" y="1067">wire by GPIO number, not position.</text>
+<rect class="panel" x="490" y="540" width="445" height="593" rx="8"/>
+<text class="h" x="506" y="564">ESP32-S3-DevKitC-1</text>
+<text class="env" x="919" y="564" text-anchor="end">env: esp32-s3</text>
+<rect x="673.5" y="590" width="78" height="482" rx="6" fill="#1f5135" stroke="#163d28" stroke-width="1.2"/>
+<rect x="681.5" y="596" width="62" height="34" rx="2" fill="#d0d7de" stroke="#8c959f"/>
+<path d="M687.5,603 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8" fill="none" stroke="#8c959f" stroke-width="1.2"/>
+<text class="mod" x="712.5" y="624" text-anchor="middle">S3-WROOM-1</text>
+<rect x="696.5" y="1064" width="32" height="14" rx="3" fill="#afb8c1" stroke="#6e7781"/>
+<circle cx="680.5" cy="636" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="640" text-anchor="end" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="680.5" cy="655" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="659" text-anchor="end" fill="#cf222e" font-weight="600">3V3</text>
+<circle cx="680.5" cy="674" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="678" text-anchor="end" fill="#57606a" font-weight="600">RST</text>
+<circle cx="680.5" cy="693" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="697" text-anchor="end">IO4</text>
+<rect x="570.9" y="685.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="696.8" text-anchor="middle" fill="#7a5a00">CH1</text>
+<circle cx="680.5" cy="712" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="716" text-anchor="end">IO5</text>
+<rect x="570.9" y="704.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="715.8" text-anchor="middle" fill="#7a5a00">CH2</text>
+<circle cx="680.5" cy="731" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="735" text-anchor="end">IO6</text>
+<rect x="570.9" y="723.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="734.8" text-anchor="middle" fill="#7a5a00">CH3</text>
+<circle cx="680.5" cy="750" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="754" text-anchor="end">IO7</text>
+<rect x="570.9" y="742.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="753.8" text-anchor="middle" fill="#7a5a00">CH4</text>
+<circle cx="680.5" cy="769" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="773" text-anchor="end">IO15</text>
+<rect x="570.9" y="761.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="772.8" text-anchor="middle" fill="#7a5a00">CH5</text>
+<circle cx="680.5" cy="788" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="792" text-anchor="end">IO16</text>
+<rect x="570.9" y="780.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="791.8" text-anchor="middle" fill="#7a5a00">CH6</text>
+<circle cx="680.5" cy="807" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="811" text-anchor="end">IO17</text>
+<rect x="570.9" y="799.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="810.8" text-anchor="middle" fill="#7a5a00">CH7</text>
+<circle cx="680.5" cy="826" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="830" text-anchor="end">IO18</text>
+<rect x="570.9" y="818.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
+<text class="chip" x="584.2" y="829.8" text-anchor="middle" fill="#7a5a00">CH8</text>
+<circle cx="680.5" cy="845" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="849" text-anchor="end">IO8</text>
+<rect x="552.3" y="837.5" width="45.2" height="15" rx="7.5" fill="#ddf4ff" stroke="#0969da" stroke-width="1"/>
+<text class="chip" x="574.9" y="848.8" text-anchor="middle" fill="#0550ae">1-Wire</text>
+<circle cx="680.5" cy="864" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="868" text-anchor="end">IO3</text>
+<rect x="533.7" y="856.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="565.6" y="867.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="680.5" cy="883" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="887" text-anchor="end">IO46</text>
+<rect x="533.7" y="875.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="565.6" y="886.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="680.5" cy="902" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="906" text-anchor="end">IO9</text>
+<circle cx="680.5" cy="921" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="925" text-anchor="end">IO10</text>
+<circle cx="680.5" cy="940" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="944" text-anchor="end">IO11</text>
+<circle cx="680.5" cy="959" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="963" text-anchor="end">IO12</text>
+<circle cx="680.5" cy="978" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="982" text-anchor="end">IO13</text>
+<circle cx="680.5" cy="997" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="1001" text-anchor="end">IO14</text>
+<circle cx="680.5" cy="1016" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="1020" text-anchor="end" fill="#cf222e" font-weight="600">5V</text>
+<circle cx="680.5" cy="1035" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="665.5" y="1039" text-anchor="end" fill="#1f2328" font-weight="600">G</text>
+<circle cx="744.5" cy="636" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="640" fill="#1f2328" font-weight="600">G</text>
+<circle cx="744.5" cy="655" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="659">TX·IO43</text>
+<rect x="827.5" y="647.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="843.9" y="658.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="744.5" cy="674" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="678">RX·IO44</text>
+<rect x="827.5" y="666.5" width="32.8" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="843.9" y="677.8" text-anchor="middle" fill="#424a53">UART</text>
+<circle cx="744.5" cy="693" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="697">IO1</text>
+<circle cx="744.5" cy="712" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="716">IO2</text>
+<circle cx="744.5" cy="731" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="735">IO42</text>
+<circle cx="744.5" cy="750" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="754">IO41</text>
+<circle cx="744.5" cy="769" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="773">IO40</text>
+<circle cx="744.5" cy="788" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="792">IO39</text>
+<circle cx="744.5" cy="807" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="811">IO38</text>
+<rect x="827.5" y="799.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="856.3" y="810.8" text-anchor="middle" fill="#424a53">RGB v1.1</text>
+<circle cx="744.5" cy="826" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="830">IO37</text>
+<rect x="827.5" y="818.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="829.8" text-anchor="middle" fill="#a40e26">PSRAM*</text>
+<circle cx="744.5" cy="845" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="849">IO36</text>
+<rect x="827.5" y="837.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="848.8" text-anchor="middle" fill="#a40e26">PSRAM*</text>
+<circle cx="744.5" cy="864" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="868">IO35</text>
+<rect x="827.5" y="856.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="867.8" text-anchor="middle" fill="#a40e26">PSRAM*</text>
+<circle cx="744.5" cy="883" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="887">IO0</text>
+<rect x="827.5" y="875.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="856.3" y="886.8" text-anchor="middle" fill="#424a53">BOOT btn</text>
+<circle cx="744.5" cy="902" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="906">IO45</text>
+<rect x="827.5" y="894.5" width="63.8" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="859.4" y="905.8" text-anchor="middle" fill="#a40e26">strapping</text>
+<circle cx="744.5" cy="921" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="925">IO48</text>
+<rect x="827.5" y="913.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+<text class="chip" x="856.3" y="924.8" text-anchor="middle" fill="#424a53">RGB v1.0</text>
+<circle cx="744.5" cy="940" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="944">IO47</text>
+<circle cx="744.5" cy="959" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="963">IO21</text>
+<circle cx="744.5" cy="978" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="982">IO20</text>
+<rect x="827.5" y="970.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="981.8" text-anchor="middle" fill="#a40e26">USB D+</text>
+<circle cx="744.5" cy="997" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="1001">IO19</text>
+<rect x="827.5" y="989.5" width="45.2" height="15" rx="7.5" fill="#ffebe9" stroke="#cf222e" stroke-width="1"/>
+<text class="chip" x="850.1" y="1000.8" text-anchor="middle" fill="#a40e26">USB D−</text>
+<circle cx="744.5" cy="1016" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="1020" fill="#1f2328" font-weight="600">G</text>
+<circle cx="744.5" cy="1035" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
+<text class="pn" x="759.5" y="1039" fill="#1f2328" font-weight="600">G</text>
+<text class="note" x="506" y="1094">Top view, module up. J1 left, J3 right.</text>
+<text class="note" x="506" y="1109">Status blink uses GPIO 48: works on v1.0 boards only.</text>
+<text class="note" x="506" y="1124">* used by octal PSRAM on N8R8 / N16R8 modules.</text>
+<rect class="panel" x="25" y="1151" width="910" height="40" rx="8"/>
+<rect x="44" y="1164" width="22" height="14" rx="7" fill="#fff4cc" stroke="#d4a017"/>
+<text class="s" x="72" y="1175">CH1–CH8  PWM channel</text>
+<rect x="198.0" y="1164" width="22" height="14" rx="7" fill="#ddf4ff" stroke="#0969da"/>
+<text class="s" x="226.0" y="1175">1-Wire  DS18B20</text>
+<rect x="322.0" y="1164" width="22" height="14" rx="7" fill="#eaeef2" stroke="#8c959f"/>
+<text class="s" x="350.0" y="1175">button · LED · UART</text>
+<rect x="470.0" y="1164" width="22" height="14" rx="7" fill="#fbefff" stroke="#8250df"/>
+<text class="s" x="498.0" y="1175">suggested relay pin</text>
+<rect x="618.0" y="1164" width="22" height="14" rx="7" fill="#ffebe9" stroke="#cf222e"/>
+<text class="s" x="646.0" y="1175">avoid: strapping · flash · USB · input only</text>
+</svg>

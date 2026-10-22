@@ -96,11 +96,17 @@ non-inverted drive, but the firmware's Invert flag makes options A–C just as g
 | esp32dev (WROOM-32) | 25, 26, 27, 14, 32, 33, 13, 23 | 4 | 0 (BOOT) | 2 (on-board LED) |
 | **xiao-c3** (Seeed XIAO ESP32-C3) | 3, 4, 5, 6, 7, 10 (D1–D5, D10); 1 channel enabled by default | 21 (D6) | 9 (BOOT) | none; suggested relay pin D7 (GPIO 20) |
 | esp32-c3-devkitm-1 | 3, 4, 5, 6, 7, 10 | 1 | 9 (BOOT) | on-board RGB LED (GPIO 8) |
-| esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | on-board RGB LED (GPIO 48) |
+| esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | on-board RGB LED (GPIO 48 on v1.0; v1.1 moved it to GPIO 38, so the blink only works on v1.0) |
 
 Pins are only defaults and can be changed from the web UI. Avoid GPIO 0, 2, 12, 15 on
 the classic ESP32 for outputs (boot strapping pins) and GPIO 34–39 (input only). On the
 C3 avoid GPIO 2, 8, 9 (strapping) and 18/19 (USB).
+
+![Header pinouts of the XIAO ESP32-C3, ESP32-C3-DevKitM-1, ESP32-DevKitC V4 and ESP32-S3-DevKitC-1, each pin tagged with its firmware default: PWM channels, 1-Wire, button, LEDs, UART, and pins to avoid](images/pin_maps.svg)
+
+Header order is taken from the Espressif user guides (DevKitC V4, C3-DevKitM-1,
+S3-DevKitC-1 v1.1) and the standard XIAO footprint. Many "ESP32 dev board" clones use a
+30-pin layout with a different order, so wire those by GPIO number.
 
 ### XIAO ESP32-C3 build (one board per driver)
 
@@ -115,6 +121,17 @@ log; the BOOT button still gives the 5 s access-point and 15 s factory-reset ges
 A **DS18B20** on the 1-Wire pin (4.7 kΩ pull-up to 3.3 V) enables heat-sink or canopy
 thermal protection: gradual dimming between two thresholds and a latched shutdown. Any
 external system can also post a temperature / humidity to `POST /api/sensors`.
+
+![DS18B20 wiring: 3V3 to VDD, D6 (GPIO21) to DQ with a 4.7 kΩ pull-up to 3V3, GND to GND, over a 3-wire cable to the sensor on the LED bar heat sink; TO-92 pinout GND-DQ-VDD, waterproof probe wire colours, parts and settings](images/ds18b20.svg)
+
+- Use powered mode with all three wires. The firmware does not support parasite power.
+- Put the 4.7 kΩ pull-up at the controller end. Drop it to 2.2 kΩ for cables longer than
+  about 5 m.
+- With the flat face toward you and leads down, the TO-92 pins are **GND, DQ, VDD**.
+  Swapping GND and VDD destroys the sensor. Probe wire colours vary by seller, so check
+  them against that order before powering up.
+- The firmware reads the first sensor on the bus every 10 s. The default thresholds of
+  45 / 55 / 65 °C suit a sensor on the LED bar's heat sink.
 
 ## Relay (optional)
 

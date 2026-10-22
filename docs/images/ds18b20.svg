@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="580" viewBox="0 0 960 580" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <title>DS18B20 temperature sensor wiring</title>
+  <desc>A XIAO ESP32-C3 connects to a DS18B20: 3V3 to VDD, D6 (GPIO21) to DQ with a 4.7 kΩ pull-up to 3V3, GND to GND, over a three-wire cable to the sensor on the LED bar heat sink. Below, the TO-92 pinout (GND, DQ, VDD with the flat face toward you), typical waterproof-probe wire colours, and the parts and settings.</desc>
+  <defs>
+    <style>
+      .box{fill:#ffffff;stroke:#8c959f;stroke-width:1.2}
+      .t{fill:#1f2328}
+      .h{font-weight:600;font-size:14px}
+      .s{fill:#57606a;font-size:11px}
+      .pin{fill:#1f2328;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .pn{fill:#0969da;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .w{stroke:#1f2328;stroke-width:1.6;fill:none;stroke-linejoin:round}
+      .pwr{stroke:#cf222e;stroke-width:2;fill:none;stroke-linejoin:round}
+      .logic{stroke:#d4a017;stroke-width:2;fill:none;stroke-linejoin:round}
+      .gnd{stroke:#1f2328;stroke-width:2;fill:none;stroke-linejoin:round}
+      .node{fill:#1f2328}
+      .note{fill:#57606a;font-size:11px;font-style:italic}
+    </style>
+  </defs>
+  <rect width="960" height="580" fill="#f6f8fa" rx="12"/>
+
+  <!-- ================= schematic ================= -->
+  <rect class="box" x="40" y="56" width="180" height="220" rx="8"/>
+  <text class="t h" x="130" y="82" text-anchor="middle">XIAO ESP32-C3</text>
+  <text class="s" x="130" y="98" text-anchor="middle">(1-Wire pin is editable)</text>
+  <text class="pin" x="212" y="124" text-anchor="end">3V3</text>
+  <text class="pin" x="212" y="184" text-anchor="end">D6 / GPIO21</text>
+  <text class="pin" x="212" y="244" text-anchor="end">GND</text>
+
+  <!-- lines to the cable -->
+  <path class="pwr" d="M220,120 L560,120"/>
+  <path class="logic" d="M220,180 L560,180"/>
+  <path class="gnd" d="M220,240 L560,240"/>
+
+  <!-- R1 pull-up 3V3 -> DQ -->
+  <circle class="node" cx="330" cy="120" r="3"/>
+  <circle class="node" cx="330" cy="180" r="3"/>
+  <polyline class="w" points="330,120 330,128 321,133 339,140 321,147 339,154 321,161 330,166 330,180"/>
+  <text class="t" x="346" y="146" font-weight="600" font-size="12">R1  4.7 kΩ</text>
+  <text class="s" x="346" y="160">DQ pull-up, at the controller end</text>
+
+  <!-- cable break -->
+  <rect x="560" y="100" width="80" height="160" rx="10" fill="#eaeef2" stroke="#8c959f" stroke-dasharray="5 4"/>
+  <path class="pwr" d="M560,120 C580,112 620,128 640,120"/>
+  <path class="logic" d="M560,180 C580,172 620,188 640,180"/>
+  <path class="gnd" d="M560,240 C580,232 620,248 640,240"/>
+  <text class="s" x="600" y="276" text-anchor="middle">3-wire cable</text>
+  <text class="s" x="600" y="290" text-anchor="middle">up to ~5 m</text>
+
+  <path class="pwr" d="M640,120 L700,120"/>
+  <path class="logic" d="M640,180 L700,180"/>
+  <path class="gnd" d="M640,240 L700,240"/>
+
+  <!-- DS18B20 -->
+  <rect x="700" y="96" width="140" height="168" rx="8" fill="#ffffff" stroke="#1f2328" stroke-width="1.4"/>
+  <text class="t" x="780" y="156" text-anchor="middle" font-weight="600" font-size="14">DS18B20</text>
+  <text class="s" x="780" y="216" text-anchor="middle">−55 to +125 °C</text>
+  <text class="pin" x="708" y="124">VDD</text>
+  <text class="pin" x="708" y="184">DQ</text>
+  <text class="pin" x="708" y="244">GND</text>
+  <text class="pn" x="696" y="114" text-anchor="end">3</text>
+  <text class="pn" x="696" y="174" text-anchor="end">2</text>
+  <text class="pn" x="696" y="234" text-anchor="end">1</text>
+
+  <!-- heat sink -->
+  <path d="M850,96 L850,264 M862,96 L862,264 M874,96 L874,264 M886,96 L886,264 M898,96 L898,264" stroke="#8c959f" stroke-width="5"/>
+  <text class="s" x="874" y="282" text-anchor="middle">LED bar heat sink</text>
+  <text class="s" x="874" y="296" text-anchor="middle">(thermal paste or epoxy)</text>
+
+  <!-- legend under schematic -->
+  <text class="s" x="40" y="300"><tspan fill="#cf222e" font-weight="600">red</tspan> 3.3 V · <tspan fill="#9a6700" font-weight="600">yellow</tspan> data (DQ) · <tspan fill="#1f2328" font-weight="600">black</tspan> ground. Powered mode (3 wires); parasite power is not used.</text>
+
+  <!-- ================= pinout ================= -->
+  <rect class="box" x="40" y="320" width="540" height="240" rx="8"/>
+  <text class="t h" x="56" y="342">Pinout</text>
+
+  <!-- TO-92 -->
+  <text class="t" x="70" y="368" font-weight="600" font-size="12">TO-92 package</text>
+  <text class="s" x="70" y="382">flat face toward you, leads down</text>
+  <rect x="80" y="396" width="80" height="58" rx="7" fill="#24292f"/>
+  <text x="120" y="422" text-anchor="middle" font-size="10" font-weight="600" fill="#ffffff">DS18B20</text>
+  <text x="120" y="438" text-anchor="middle" font-size="9" fill="#afb8c1">flat face</text>
+  <path d="M94,454 L94,492 M120,454 L120,492 M146,454 L146,492" stroke="#8c959f" stroke-width="3" stroke-linecap="round"/>
+  <text class="pn" x="94" y="508" text-anchor="middle">1</text>
+  <text class="pn" x="120" y="508" text-anchor="middle">2</text>
+  <text class="pn" x="146" y="508" text-anchor="middle">3</text>
+  <text class="t" x="94" y="524" text-anchor="middle" font-weight="600" font-size="11">GND</text>
+  <text class="t" x="120" y="524" text-anchor="middle" font-weight="600" font-size="11">DQ</text>
+  <text class="t" x="146" y="524" text-anchor="middle" font-weight="600" font-size="11">VDD</text>
+  <text class="note" x="70" y="552">Reversing GND and VDD destroys the sensor.</text>
+
+  <!-- waterproof probe -->
+  <text class="t" x="300" y="368" font-weight="600" font-size="12">Waterproof probe</text>
+  <text class="s" x="300" y="382">stainless tube, sealed cable</text>
+  <rect x="300" y="420" width="96" height="22" rx="11" fill="#d0d7de" stroke="#8c959f"/>
+  <rect x="392" y="418" width="34" height="26" rx="3" fill="#24292f"/>
+  <path d="M426,426 C460,426 470,404 500,404 L512,404" stroke="#cf222e" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M426,431 C460,431 470,431 500,431 L512,431" stroke="#d4a017" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M426,436 C460,436 470,458 500,458 L512,458" stroke="#1f2328" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text class="pin" x="518" y="408">VDD</text>
+  <text class="pin" x="518" y="435">DQ</text>
+  <text class="pin" x="518" y="462">GND</text>
+  <text class="s" x="300" y="490"><tspan fill="#cf222e" font-weight="600">red</tspan> VDD · <tspan fill="#9a6700" font-weight="600">yellow</tspan> DQ · <tspan font-weight="600" fill="#1f2328">black</tspan> GND</text>
+  <text class="note" x="300" y="508">Colours vary by seller (white or blue for DQ is</text>
+  <text class="note" x="300" y="522">common): check the listing, or meter the leads</text>
+  <text class="note" x="300" y="536">against the TO-92 order before powering up.</text>
+
+  <!-- ================= parts / settings ================= -->
+  <rect class="box" x="600" y="320" width="320" height="240" rx="8"/>
+  <text class="t h" x="616" y="342">Per sensor</text>
+  <text class="t" x="616" y="364" font-size="12"><tspan font-weight="600">U1</tspan>  DS18B20, TO-92 or waterproof probe</text>
+  <text class="t" x="616" y="384" font-size="12"><tspan font-weight="600">R1</tspan>  4.7 kΩ DQ to 3.3 V</text>
+  <text class="s" x="616" y="398">     2.2 kΩ for cables longer than ~5 m</text>
+  <text class="t h" x="616" y="426" font-size="13">In Settings</text>
+  <text class="s" x="616" y="444">Sensors → DS18B20 1-Wire GPIO: 21 on the XIAO</text>
+  <text class="s" x="616" y="458">(default), applied at the next reboot.</text>
+  <text class="s" x="616" y="476">Effects → Thermal protection: dim from 45 °C,</text>
+  <text class="s" x="616" y="490">reach the floor at 55 °C, shut down at 65 °C.</text>
+  <text class="t h" x="616" y="516" font-size="13">Firmware</text>
+  <text class="s" x="616" y="534">Reads the first sensor on the bus every 10 s at</text>
+  <text class="s" x="616" y="548">11-bit resolution (0.125 °C).</text>
+</svg>
