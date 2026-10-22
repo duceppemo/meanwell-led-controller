@@ -40,6 +40,7 @@
   <path class="logic" d="M220,200 L268,200"/>
   <polyline class="w" points="268,200 273,200 278,191 286,209 294,191 302,209 310,191 318,209 323,200 328,200"/>
   <text class="t" x="298" y="228" text-anchor="middle" font-weight="600" font-size="12">R1  1 kΩ</text>
+  <text class="s" x="298" y="242" text-anchor="middle">(R1 100 Ω for 2N7000)</text>
   <path class="w" d="M328,200 L446,200"/>
   <circle class="node" cx="380" cy="200" r="3"/>
 
