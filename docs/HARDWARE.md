@@ -67,13 +67,23 @@ it. Still inverted → tick Invert.
 
 ### C. Optocoupler (galvanic isolation, e.g. long cable runs or multiple mains drivers)
 
-```
-ESP32 GPIO ──[330 Ω]── PC817 anode ... cathode ── GND
-PC817 collector ── DIM+  with 10 kΩ pull-up to +12 V (isolated supply, GND to DIM-)
-PC817 emitter   ── DIM-
-```
+![Optocoupler stage: the GPIO drives the PC817 LED through 330 Ω with a 1 kΩ boot pull-up to 3.3 V, the cathode returns to ESP32 ground; across the isolation barrier the phototransistor collector goes to DIM+ and the emitter to DIM-, with an optional 10 kΩ pull-up to an isolated 12 V supply. Waveforms, parts and the DIP-4 pinout are shown below the schematic.](images/optocoupler.svg)
 
-Also inverted. A PC817 is slow (~µs); stay at ≤ 1 kHz.
+The phototransistor replaces Q1 from option A, and the driver's own 100 µA source still
+pulls DIM+ high. GPIO high lights the LED, which pulls DIM+ low, so this stage is also
+**inverted**: tick Invert. ESP32 GND connects to the LED cathode only and must never be
+joined to DIM-, otherwise the isolation is lost.
+
+**Boot state.** R2 from the GPIO to 3.3 V keeps about 1.6 mA in the LED while the GPIO
+floats, enough to hold DIM+ low against the driver's 100 µA, so the light stays off until
+the firmware runs. If you fit the optional 12 V pull-up R3, it draws 1.2 mA, so drop R2 to
+470 Ω to keep that margin.
+
+**Speed.** A PC817 turns off slowly, in tens of µs with a 100 µA load. Keep PWM at
+**≤ 500 Hz** without R3 and **≤ 1 kHz** with it.
+
+Pinout of the PC817 DIP-4, top view: **1 anode, 2 cathode, 3 emitter, 4 collector**, with
+pin 1 marked by a dot. LTV-817 and EL817 use the same pinout.
 
 ### Non-inverting alternative
 A 74HCT125/74AHCT125 buffer at 5 V followed by a MOSFET with 12 V pull-up gives

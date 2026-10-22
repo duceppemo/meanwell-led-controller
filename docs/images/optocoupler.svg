@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="780" viewBox="0 0 960 780" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <title>Optocoupler drive of a Mean Well DIM+/DIM- input</title>
+  <desc>A XIAO ESP32-C3 GPIO drives the LED of a PC817 optocoupler through a 330 Ω resistor; a 1 kΩ resistor from the GPIO to 3.3 V keeps the LED on while the GPIO floats at boot. The LED cathode returns to ESP32 ground. Across the isolation barrier the phototransistor collector goes to DIM+ and its emitter to DIM-; the driver's internal 100 µA source pulls DIM+ to about 10 V when the phototransistor is off, and an optional 10 kΩ pull-up to an isolated 12 V supply sharpens the edges. The waveform strip shows the inverted DIM+ signal, a parts card lists values, and a pinout card shows the DIP-4 package.</desc>
+  <defs>
+    <style>
+      .box{fill:#ffffff;stroke:#8c959f;stroke-width:1.2}
+      .inner{fill:#f6f8fa;stroke:#d0d7de;stroke-width:1}
+      .t{fill:#1f2328}
+      .h{font-weight:600;font-size:14px}
+      .s{fill:#57606a;font-size:11px}
+      .pin{fill:#1f2328;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .pn{fill:#0969da;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .w{stroke:#1f2328;stroke-width:1.6;fill:none;stroke-linejoin:round}
+      .logic{stroke:#d4a017;stroke-width:2;fill:none;stroke-linejoin:round}
+      .dim{stroke:#8250df;stroke-width:2;fill:none;stroke-linejoin:round}
+      .opt{stroke:#57606a;stroke-width:1.4;fill:none;stroke-dasharray:5 4}
+      .node{fill:#1f2328}
+      .note{fill:#57606a;font-size:11px;font-style:italic}
+      .grid{stroke:#d0d7de;stroke-width:1;stroke-dasharray:3 3}
+      .barrier{stroke:#cf222e;stroke-width:1.4;stroke-dasharray:6 4;fill:none}
+    </style>
+  </defs>
+  <rect width="960" height="780" fill="#f6f8fa" rx="12"/>
+
+  <!-- ================= schematic ================= -->
+
+  <!-- ESP32 -->
+  <rect class="box" x="40" y="56" width="180" height="234" rx="8"/>
+  <text class="t h" x="130" y="82" text-anchor="middle">XIAO ESP32-C3</text>
+  <text class="s" x="130" y="98" text-anchor="middle">(any ESP32 GPIO works)</text>
+  <text class="pin" x="212" y="104" text-anchor="end">3V3</text>
+  <text class="pin" x="212" y="154" text-anchor="end">D1 / GPIO3</text>
+  <text class="pin" x="212" y="254" text-anchor="end">GND</text>
+
+  <!-- 3V3 -> R2 -> GPIO node -->
+  <path class="logic" d="M220,100 L290,100 L290,106"/>
+  <polyline class="w" points="290,106 290,110 281,114 299,120 281,126 299,132 281,138 290,142 290,150"/>
+  <text class="t" x="306" y="118" font-weight="600" font-size="12">R2  1 kΩ</text>
+  <text class="s" x="306" y="132">keeps the LED on at boot</text>
+  <circle class="node" cx="290" cy="150" r="3"/>
+
+  <!-- GPIO -> R1 -> anode -->
+  <path class="logic" d="M220,150 L326,150"/>
+  <polyline class="w" points="326,150 331,150 336,141 344,159 352,141 360,159 368,141 376,159 381,150 386,150"/>
+  <text class="t" x="356" y="178" text-anchor="middle" font-weight="600" font-size="12">R1  330 Ω</text>
+  <text class="s" x="356" y="192" text-anchor="middle">≈6 mA LED current</text>
+  <path class="w" d="M386,150 L440,150"/>
+
+  <!-- ESP32 GND -> cathode (stays on the ESP32 side) -->
+  <path class="w" d="M220,250 L440,250"/>
+  <text class="s" x="330" y="268" text-anchor="middle">ESP32 GND: LED side only</text>
+
+  <!-- PC817 -->
+  <rect x="440" y="112" width="160" height="176" rx="8" fill="#ffffff" stroke="#1f2328" stroke-width="1.4"/>
+  <text class="t" x="520" y="130" text-anchor="middle" font-weight="600" font-size="12">U1  PC817</text>
+  <text class="pn" x="436" y="145" text-anchor="end">1 A</text>
+  <text class="pn" x="436" y="245" text-anchor="end">2 K</text>
+  <text class="pn" x="604" y="145">4 C</text>
+  <text class="pn" x="604" y="245">3 E</text>
+  <!-- LED -->
+  <path class="w" d="M440,150 L472,150 L472,182"/>
+  <polygon points="460,182 484,182 472,204" fill="#ffffff" stroke="#1f2328" stroke-width="1.6" stroke-linejoin="round"/>
+  <path class="w" d="M460,204 L484,204"/>
+  <path class="w" d="M472,204 L472,250 L440,250"/>
+  <!-- light -->
+  <path class="w" d="M490,184 L510,192 M490,198 L510,206" stroke-width="1.3"/>
+  <polygon points="513,193 504,194 507,187" fill="#1f2328"/>
+  <polygon points="513,207 504,208 507,201" fill="#1f2328"/>
+  <!-- isolation barrier -->
+  <path class="barrier" d="M520,140 L520,282"/>
+  <!-- phototransistor -->
+  <circle cx="558" cy="200" r="22" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+  <path class="w" d="M546,186 L546,214" stroke-width="2.2"/>
+  <path class="w" d="M546,193 L564,182 L564,150 L600,150"/>
+  <path class="w" d="M546,207 L564,218 L564,250 L600,250"/>
+  <polygon points="565,219 555,218 559,210" fill="#1f2328"/>
+  <text class="s" x="520" y="302" text-anchor="middle" fill="#cf222e">isolation barrier</text>
+
+  <!-- collector -> DIM+, emitter -> DIM- -->
+  <path class="dim" d="M600,150 L700,150"/>
+  <path class="dim" d="M600,250 L700,250"/>
+  <text class="s" x="650" y="268" text-anchor="middle">driver side</text>
+
+  <!-- optional 12 V pull-up -->
+  <circle class="node" cx="650" cy="150" r="3"/>
+  <path class="opt" d="M650,150 L650,110"/>
+  <rect x="643" y="80" width="14" height="30" fill="#ffffff" stroke="#1f2328" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <path class="opt" d="M650,80 L650,62"/>
+  <text class="t" x="636" y="92" text-anchor="end" font-weight="600" font-size="12">R3  10 kΩ</text>
+  <text class="s" x="636" y="105" text-anchor="end">optional</text>
+  <text class="s" x="690" y="52" text-anchor="end">+12 V (isolated, GND to DIM−)</text>
+
+  <!-- Mean Well driver -->
+  <rect class="box" x="700" y="56" width="220" height="234" rx="8"/>
+  <text class="t h" x="810" y="78" text-anchor="middle">Mean Well driver</text>
+  <text class="s" x="810" y="93" text-anchor="middle">XLG-…-AB · HLG-…-C-B</text>
+  <text class="pin" x="708" y="144">DIM+</text>
+  <text class="pin" x="708" y="244">DIM−</text>
+  <rect class="inner" x="760" y="104" width="148" height="172" rx="6"/>
+  <text class="s" x="834" y="120" text-anchor="middle">internal, isolated</text>
+  <text class="pin" x="790" y="138" text-anchor="middle">≈10 V</text>
+  <path class="w" d="M790,142 L790,160"/>
+  <circle cx="790" cy="176" r="15" fill="#ffffff" stroke="#1f2328" stroke-width="1.6"/>
+  <path class="w" d="M790,166 L790,186"/>
+  <polygon points="790,190 785,181 795,181" fill="#1f2328"/>
+  <text class="t" x="812" y="174" font-weight="600" font-size="12">100 µA</text>
+  <text class="s" x="812" y="188">source</text>
+  <path class="w" d="M790,191 L790,214"/>
+  <path class="dim" d="M700,150 L740,150 L740,214 L790,214"/>
+  <circle class="node" cx="790" cy="214" r="3"/>
+  <path class="w" d="M790,214 L838,214"/>
+  <rect x="838" y="200" width="62" height="28" rx="4" fill="#ffffff" stroke="#1f2328" stroke-width="1.2"/>
+  <text class="s" x="869" y="218" text-anchor="middle">detector</text>
+  <path class="w" d="M869,228 L869,250 L700,250"/>
+
+  <!-- ================= waveforms ================= -->
+  <rect class="box" x="40" y="336" width="580" height="180" rx="8"/>
+  <text class="t h" x="56" y="358">Signals at 75 % brightness, Invert ticked</text>
+  <text class="s" x="350" y="358">GPIO high → LED on → DIM+ low</text>
+
+  <text class="pin" x="56" y="398">GPIO</text>
+  <text class="s" x="56" y="412">0 / 3.3 V</text>
+  <text class="pin" x="56" y="458">DIM+</text>
+  <text class="s" x="56" y="472">0 / ≈10 V</text>
+
+  <path class="grid" d="M140,372 L140,500 M300,372 L300,500 M460,372 L460,500 M600,372 L600,500"/>
+  <path class="logic" d="M140,415 L140,385 L180,385 L180,415 L300,415 L300,385 L340,385 L340,415 L460,415 L460,385 L500,385 L500,415 L600,415"/>
+  <!-- slower than option A: phototransistor turn-off delay, then the 100 µA ramp -->
+  <path class="dim" d="M140,440 L143,490 L186,490 C194,462 210,444 246,440 L300,440 L303,490 L346,490 C354,462 370,444 406,440 L460,440 L463,490 L506,490 C514,462 530,444 566,440 L600,440"/>
+
+  <text class="note" x="160" y="378" text-anchor="middle">25 %</text>
+  <text class="note" x="250" y="434" text-anchor="middle">75 % high</text>
+  <text class="note" x="215" y="506" text-anchor="middle">delayed, slow rise: R3 speeds it up</text>
+
+  <!-- ================= parts / settings ================= -->
+  <rect class="box" x="640" y="336" width="280" height="180" rx="8"/>
+  <text class="t h" x="656" y="358">Per channel</text>
+  <text class="t" x="656" y="380" font-size="12"><tspan font-weight="600">U1</tspan>  PC817 (or LTV-817, EL817)</text>
+  <text class="t" x="656" y="398" font-size="12"><tspan font-weight="600">R1</tspan>  330 Ω LED resistor</text>
+  <text class="t" x="656" y="416" font-size="12"><tspan font-weight="600">R2</tspan>  1 kΩ GPIO to 3.3 V</text>
+  <text class="s" x="656" y="430">     470 Ω if R3 is fitted</text>
+  <text class="t" x="656" y="448" font-size="12"><tspan font-weight="600">R3</tspan>  10 kΩ to isolated +12 V, optional</text>
+  <text class="t h" x="656" y="476" font-size="13">In Settings → Channels</text>
+  <text class="s" x="656" y="492">tick <tspan font-weight="600" fill="#1f2328">Invert</tspan>, PWM ≤ 500 Hz (≤ 1 kHz with R3),</text>
+  <text class="s" x="656" y="506">Min % = 8 (XLG) or 6 (HLG-C)</text>
+
+  <!-- ================= pinout ================= -->
+  <rect class="box" x="40" y="536" width="880" height="228" rx="8"/>
+  <text class="t h" x="56" y="558">Pinout (DIP-4)</text>
+  <text class="s" x="170" y="558">top view, pin 1 marked by a dot; pins numbered counter-clockwise</text>
+
+  <!-- package top view -->
+  <rect x="120" y="600" width="90" height="100" rx="6" fill="#24292f"/>
+  <circle cx="134" cy="614" r="5" fill="#8c959f"/>
+  <text x="165" y="650" text-anchor="middle" font-size="12" font-weight="600" fill="#ffffff">PC817</text>
+  <text x="165" y="666" text-anchor="middle" font-size="9" fill="#afb8c1">top view</text>
+  <path d="M120,624 L98,624 M120,676 L98,676 M210,624 L232,624 M210,676 L232,676" stroke="#8c959f" stroke-width="5" stroke-linecap="round"/>
+  <text class="pn" x="90" y="628" text-anchor="end">1 A</text>
+  <text class="pn" x="90" y="680" text-anchor="end">2 K</text>
+  <text class="pn" x="240" y="628">4 C</text>
+  <text class="pn" x="240" y="680">3 E</text>
+  <text class="s" x="165" y="724" text-anchor="middle">same pinout for the gull-wing SMD version</text>
+
+  <!-- internal symbol -->
+  <rect x="330" y="592" width="150" height="120" rx="6" fill="#ffffff" stroke="#1f2328" stroke-width="1.2"/>
+  <path class="w" d="M330,612 L362,612 L362,636"/>
+  <polygon points="352,636 372,636 362,654" fill="#ffffff" stroke="#1f2328" stroke-width="1.5" stroke-linejoin="round"/>
+  <path class="w" d="M352,654 L372,654 M362,654 L362,692 L330,692"/>
+  <path class="w" d="M378,640 L394,646 M378,652 L394,658" stroke-width="1.2"/>
+  <polygon points="397,647 389,648 392,642" fill="#1f2328"/>
+  <polygon points="397,659 389,660 392,654" fill="#1f2328"/>
+  <path class="barrier" d="M405,602 L405,702"/>
+  <circle cx="438" cy="652" r="18" fill="#ffffff" stroke="#1f2328" stroke-width="1.4"/>
+  <path class="w" d="M428,640 L428,664" stroke-width="2"/>
+  <path class="w" d="M428,646 L444,636 L444,612 L480,612"/>
+  <path class="w" d="M428,658 L444,668 L444,692 L480,692"/>
+  <polygon points="445,669 436,668 440,661" fill="#1f2328"/>
+  <text class="pn" x="322" y="616" text-anchor="end">1</text>
+  <text class="pn" x="322" y="696" text-anchor="end">2</text>
+  <text class="pn" x="488" y="616">4</text>
+  <text class="pn" x="488" y="696">3</text>
+
+  <!-- connections -->
+  <text class="t" x="560" y="604" font-weight="600" font-size="12">Connections</text>
+  <text class="pn" x="560" y="626">1 A</text><text class="s" x="600" y="626">anode ← R1 ← GPIO (R2 to 3.3 V)</text>
+  <text class="pn" x="560" y="646">2 K</text><text class="s" x="600" y="646">cathode → ESP32 GND</text>
+  <text class="pn" x="560" y="666">3 E</text><text class="s" x="600" y="666">emitter → DIM−</text>
+  <text class="pn" x="560" y="686">4 C</text><text class="s" x="600" y="686">collector → DIM+ (and R3 if fitted)</text>
+  <text class="note" x="560" y="716">Pins 1–2 and 3–4 sit on opposite sides of the</text>
+  <text class="note" x="560" y="730">isolation barrier: never join ESP32 GND to DIM−.</text>
+</svg>
