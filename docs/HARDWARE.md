@@ -40,6 +40,10 @@ The ESP32 outputs 3.3 V, and the driver interprets 3.3 V as ~33 %. Three proven 
 
 ![Open-collector stage: the GPIO drives an NPN through a 1 kΩ base resistor with a 10 kΩ boot pull-up to 3.3 V; the collector goes to DIM+, the emitter to DIM- and ESP32 ground; inside the driver a 100 µA source pulls DIM+ to about 10 V when the transistor is off. Waveforms show the GPIO high 25 % of the time and DIM+ high 75 % with a slow rising edge.](images/open_collector.svg)
 
+Pin order on the TO-92 package, flat face toward you, leads down, left to right:
+**BC547 = C B E**, **2N7000 = S G D**. The PN2222A is E B C, the reverse of the BC547,
+so it is not a drop-in swap.
+
 The driver's own ~100 µA current source pulls DIM+ to ~10 V when the transistor is off and
 the transistor shorts it to 0 V when on. The driver sees a 10 V PWM signal **inverted**
 relative to the GPIO: GPIO high = 0 %. Tick **Invert** for the channel in

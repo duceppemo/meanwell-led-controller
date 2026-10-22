@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="780" viewBox="0 0 960 780" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
   <title>Open-collector drive of a Mean Well DIM+/DIM- input</title>
   <desc>A XIAO ESP32-C3 GPIO drives an NPN transistor through a 1 kΩ base resistor; a 10 kΩ resistor from base to 3.3 V keeps the transistor on while the GPIO floats at boot. The collector goes to DIM+ and the emitter to DIM- and ESP32 ground. Inside the driver a 100 µA current source pulls DIM+ to about 10 V when the transistor is off. The waveform strip shows the GPIO signal and the resulting inverted DIM+ signal with its slow rising edge.</desc>
   <defs>
@@ -17,7 +17,7 @@
       .grid{stroke:#d0d7de;stroke-width:1;stroke-dasharray:3 3}
     </style>
   </defs>
-  <rect width="960" height="540" fill="#f6f8fa" rx="12"/>
+  <rect width="960" height="780" fill="#f6f8fa" rx="12"/>
 
   <!-- ================= schematic ================= -->
 
@@ -49,9 +49,12 @@
   <path class="w" d="M446,192 L472,176 L472,150"/>
   <path class="w" d="M446,208 L472,224 L472,280"/>
   <polygon points="473,225 461,224 466,214" fill="#1f2328"/>
-  <text class="t" x="502" y="196" font-weight="600" font-size="12">Q1</text>
-  <text class="s" x="502" y="210">2N2222 / BC547</text>
-  <text class="s" x="502" y="224">(or 2N7000 MOSFET)</text>
+  <text class="t" x="502" y="196" font-weight="600" font-size="12">Q1  BC547 or 2N7000</text>
+  <text class="s" x="502" y="210">pin labels: BC547 | 2N7000</text>
+  <text class="s" x="502" y="224">(pinouts below)</text>
+  <text class="pin" x="466" y="162" text-anchor="end" fill="#0969da">C1 | D3</text>
+  <text class="pin" x="408" y="193" text-anchor="middle" fill="#0969da">B2 | G2</text>
+  <text class="pin" x="478" y="258" fill="#0969da">E3 | S1</text>
 
   <!-- collector -> DIM+ -->
   <path class="dim" d="M472,150 L700,150"/>
@@ -113,7 +116,7 @@
   <!-- ================= parts / settings ================= -->
   <rect class="box" x="640" y="336" width="280" height="180" rx="8"/>
   <text class="t h" x="656" y="358">Per channel</text>
-  <text class="t" x="656" y="382" font-size="12"><tspan font-weight="600">Q1</tspan>  2N2222 or BC547 NPN</text>
+  <text class="t" x="656" y="382" font-size="12"><tspan font-weight="600">Q1</tspan>  BC547 NPN</text>
   <text class="s" x="656" y="396">     or 2N7000 N-MOSFET (R1 → 100 Ω)</text>
   <text class="t" x="656" y="418" font-size="12"><tspan font-weight="600">R1</tspan>  1 kΩ base resistor</text>
   <text class="t" x="656" y="438" font-size="12"><tspan font-weight="600">R2</tspan>  10 kΩ base to 3.3 V</text>
@@ -121,4 +124,76 @@
   <text class="t h" x="656" y="480" font-size="13">In Settings → Channels</text>
   <text class="s" x="656" y="496">tick <tspan font-weight="600" fill="#1f2328">Invert</tspan>, keep PWM ≤ 1 kHz,</text>
   <text class="s" x="656" y="510">Min % = 8 (XLG) or 6 (HLG-C)</text>
+
+  <!-- ================= pinouts ================= -->
+  <rect class="box" x="40" y="536" width="880" height="228" rx="8"/>
+  <text class="t h" x="56" y="558">Pinouts (TO-92)</text>
+  <text class="s" x="180" y="558">front view: flat face toward you, leads down, pins numbered left to right</text>
+
+  <!-- BC547 -->
+  <text class="t h" x="60" y="590">BC547</text>
+  <text class="s" x="112" y="590">NPN</text>
+  <!-- front view -->
+  <rect x="76" y="604" width="68" height="58" rx="7" fill="#24292f"/>
+  <text x="110" y="630" text-anchor="middle" font-size="11" font-weight="600" fill="#ffffff">BC547</text>
+  <text x="110" y="646" text-anchor="middle" font-size="9" fill="#afb8c1">flat face</text>
+  <path d="M90,662 L90,700 M110,662 L110,700 M130,662 L130,700" stroke="#8c959f" stroke-width="3" stroke-linecap="round"/>
+  <text class="pin" x="90" y="716" text-anchor="middle">1</text>
+  <text class="pin" x="110" y="716" text-anchor="middle">2</text>
+  <text class="pin" x="130" y="716" text-anchor="middle">3</text>
+  <text class="t" x="90" y="732" text-anchor="middle" font-weight="600" font-size="12">C</text>
+  <text class="t" x="110" y="732" text-anchor="middle" font-weight="600" font-size="12">B</text>
+  <text class="t" x="130" y="732" text-anchor="middle" font-weight="600" font-size="12">E</text>
+  <!-- top view -->
+  <path d="M176,664 L236,664 A30,30 0 0 0 176,664 Z" fill="#24292f" transform="translate(0,-14)"/>
+  <circle cx="190" cy="642" r="3" fill="#8c959f"/><circle cx="206" cy="642" r="3" fill="#8c959f"/><circle cx="222" cy="642" r="3" fill="#8c959f"/>
+  <text class="s" x="206" y="668" text-anchor="middle">top view, flat side</text>
+  <text class="s" x="206" y="681" text-anchor="middle">toward you: C B E</text>
+  <!-- symbol -->
+  <circle cx="350" cy="648" r="22" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+  <path class="w" d="M337,635 L337,661" stroke-width="2.2"/>
+  <path class="w" d="M296,648 L337,648"/>
+  <path class="w" d="M337,641 L356,629 L356,606"/>
+  <path class="w" d="M337,655 L356,667 L356,690"/>
+  <polygon points="357,668 347,667 351,659" fill="#1f2328"/>
+  <text class="pin" x="300" y="642" fill="#0969da">B 2</text>
+  <text class="pin" x="362" y="614" fill="#0969da">C 1</text>
+  <text class="pin" x="362" y="688" fill="#0969da">E 3</text>
+  <text class="s" x="400" y="636">C → DIM+</text>
+  <text class="s" x="400" y="650">B → R1 and R2</text>
+  <text class="s" x="400" y="664">E → DIM− / GND</text>
+
+  <!-- 2N7000 -->
+  <text class="t h" x="500" y="590">2N7000</text>
+  <text class="s" x="560" y="590">N-channel MOSFET</text>
+  <rect x="516" y="604" width="68" height="58" rx="7" fill="#24292f"/>
+  <text x="550" y="630" text-anchor="middle" font-size="11" font-weight="600" fill="#ffffff">2N7000</text>
+  <text x="550" y="646" text-anchor="middle" font-size="9" fill="#afb8c1">flat face</text>
+  <path d="M530,662 L530,700 M550,662 L550,700 M570,662 L570,700" stroke="#8c959f" stroke-width="3" stroke-linecap="round"/>
+  <text class="pin" x="530" y="716" text-anchor="middle">1</text>
+  <text class="pin" x="550" y="716" text-anchor="middle">2</text>
+  <text class="pin" x="570" y="716" text-anchor="middle">3</text>
+  <text class="t" x="530" y="732" text-anchor="middle" font-weight="600" font-size="12">S</text>
+  <text class="t" x="550" y="732" text-anchor="middle" font-weight="600" font-size="12">G</text>
+  <text class="t" x="570" y="732" text-anchor="middle" font-weight="600" font-size="12">D</text>
+  <path d="M616,664 L676,664 A30,30 0 0 0 616,664 Z" fill="#24292f" transform="translate(0,-14)"/>
+  <circle cx="630" cy="642" r="3" fill="#8c959f"/><circle cx="646" cy="642" r="3" fill="#8c959f"/><circle cx="662" cy="642" r="3" fill="#8c959f"/>
+  <text class="s" x="646" y="668" text-anchor="middle">top view, flat side</text>
+  <text class="s" x="646" y="681" text-anchor="middle">toward you: S G D</text>
+  <!-- symbol -->
+  <circle cx="790" cy="648" r="22" fill="#ffffff" stroke="#1f2328" stroke-width="1.5"/>
+  <path class="w" d="M736,658 L773,658 M773,636 L773,660"/>
+  <path class="w" d="M779,634 L779,642 M779,644 L779,652 M779,654 L779,662" stroke-width="2.2"/>
+  <path class="w" d="M779,638 L797,638 L797,606"/>
+  <path class="w" d="M779,658 L797,658 L797,690"/>
+  <path class="w" d="M797,648 L785,648 M797,648 L797,658"/>
+  <polygon points="780,648 788,644 788,652" fill="#1f2328"/>
+  <text class="pin" x="738" y="652" fill="#0969da">G 2</text>
+  <text class="pin" x="803" y="614" fill="#0969da">D 3</text>
+  <text class="pin" x="803" y="688" fill="#0969da">S 1</text>
+  <text class="s" x="828" y="636">D → DIM+</text>
+  <text class="s" x="828" y="650">G → R1, R2</text>
+  <text class="s" x="828" y="664">S → DIM− / GND</text>
+
+  <text class="note" x="56" y="754">Standard ON Semi / NXP / Diodes pinouts. Check your part's datasheet: PN2222A is E-B-C, the reverse of BC547.</text>
 </svg>

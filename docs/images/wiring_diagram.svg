@@ -64,7 +64,7 @@
   <circle class="comp" cx="560" cy="136" r="18"/>
   <path class="w" d="M549,126 L549,146 M549,131 L570,120 M549,141 L570,152"/>
   <path d="M564,149 L570,152 L565,154 Z" fill="#1f2328"/>
-  <text class="lbl" x="560" y="170" text-anchor="middle">Q1  2N2222 / BC547</text>
+  <text class="lbl" x="560" y="170" text-anchor="middle">Q1  BC547</text>
   <text class="lbl" x="560" y="183" text-anchor="middle">(or 2N7000, no 1 kΩ)</text>
   <!-- collector -> DIM+ -->
   <path class="dim" d="M570,120 L640,120 L640,100 L720,100"/>
