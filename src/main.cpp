@@ -12,6 +12,7 @@
 #include "WifiManager.h"
 #include "WebUi.h"
 #include "BleProv.h"
+#include "Knob.h"
 
 #ifndef FW_VERSION
 #define FW_VERSION "dev"
@@ -72,6 +73,7 @@ void setup() {
 
   channelsBegin();     // outputs at 0 % as early as possible
   engineBegin();
+  knobBegin();
   timeBegin();
   sensorsBegin();
   wifiBegin();
@@ -84,6 +86,7 @@ void loop() {
   wifiLoop();
   timeLoop();
   sensorsLoop();
+  knobLoop();
   engineLoop();
   webLoop();
   bleLoop();

@@ -40,6 +40,8 @@ void configDefaults() {
   cfg.tempDimStart = 45; cfg.tempDimFull = 55; cfg.tempDimFloor = 30; cfg.tempShutdown = 65;
   cfg.oneWirePin = PIN_ONEWIRE;
   cfg.relayPin = -1; cfg.relayActiveLow = false; cfg.relayOffDelayS = 60;
+  cfg.knobA = DEFAULT_KNOB_A; cfg.knobB = DEFAULT_KNOB_B; cfg.knobBtn = DEFAULT_KNOB_BTN;
+  cfg.knobStepPct = 2; cfg.knobDivider = 4; cfg.knobReverse = false; cfg.knobTimeoutMin = 0;
 }
 
 void configToJson(JsonObject o, bool includeSecrets) {
@@ -78,6 +80,10 @@ void configToJson(JsonObject o, bool includeSecrets) {
   s["oneWirePin"] = cfg.oneWirePin;
   JsonObject r = o["relay"].to<JsonObject>();
   r["pin"] = cfg.relayPin; r["activeLow"] = cfg.relayActiveLow; r["offDelay"] = cfg.relayOffDelayS;
+  JsonObject k = o["knob"].to<JsonObject>();
+  k["a"] = cfg.knobA; k["b"] = cfg.knobB; k["btn"] = cfg.knobBtn;
+  k["step"] = cfg.knobStepPct; k["div"] = cfg.knobDivider; k["reverse"] = cfg.knobReverse;
+  k["timeoutMin"] = cfg.knobTimeoutMin;
 }
 
 void configFromJson(JsonObjectConst o) {
@@ -137,6 +143,15 @@ void configFromJson(JsonObjectConst o) {
   cfg.relayPin = r["pin"] | cfg.relayPin;
   cfg.relayActiveLow = r["activeLow"] | cfg.relayActiveLow;
   cfg.relayOffDelayS = constrain((int)(r["offDelay"] | (int)cfg.relayOffDelayS), 0, 3600);
+  JsonObjectConst k = o["knob"];
+  cfg.knobA = constrain((int)(k["a"] | (int)cfg.knobA), -1, 48);
+  cfg.knobB = constrain((int)(k["b"] | (int)cfg.knobB), -1, 48);
+  cfg.knobBtn = constrain((int)(k["btn"] | (int)cfg.knobBtn), -1, 48);
+  cfg.knobStepPct = constrain((float)(k["step"] | cfg.knobStepPct), 0.5f, 25.0f);
+  int div = k["div"] | (int)cfg.knobDivider;
+  cfg.knobDivider = (div == 1 || div == 2) ? div : 4;
+  cfg.knobReverse = k["reverse"] | cfg.knobReverse;
+  cfg.knobTimeoutMin = constrain((int)(k["timeoutMin"] | (int)cfg.knobTimeoutMin), 0, 1440);
 }
 
 bool configLoad() {

@@ -94,7 +94,7 @@ non-inverted drive, but the firmware's Invert flag makes options A–C just as g
 | Target | PWM channels (GPIO) | 1-Wire | Button | Status LED |
 |---|---|---|---|---|
 | esp32dev (WROOM-32) | 25, 26, 27, 14, 32, 33, 13, 23 | 4 | 0 (BOOT) | 2 (on-board LED) |
-| **xiao-c3** (Seeed XIAO ESP32-C3) | 3, 4, 5, 6, 7, 10 (D1–D5, D10); 1 channel enabled by default | 21 (D6) | 9 (BOOT) | none; suggested relay pin D7 (GPIO 20) |
+| **xiao-c3** (Seeed XIAO ESP32-C3) | 3, 7, 10 (D1, D5, D10); 1 channel enabled by default | 21 (D6) | 9 (BOOT) | none; knob on D2/D3/D4 (GPIO 4/5/6), suggested relay pin D7 (GPIO 20) |
 | esp32-c3-devkitm-1 | 3, 4, 5, 6, 7, 10 | 1 | 9 (BOOT) | on-board RGB LED (GPIO 8) |
 | esp32-s3-devkitc-1 | 4, 5, 6, 7, 15, 16, 17, 18 | 8 | 0 (BOOT) | on-board RGB LED (GPIO 48 on v1.0; v1.1 moved it to GPIO 38, so the blink only works on v1.0) |
 
@@ -111,8 +111,8 @@ S3-DevKitC-1 v1.1) and the standard XIAO footprint. Many "ESP32 dev board" clone
 ### XIAO ESP32-C3 build (one board per driver)
 
 With a board at each light bar, each XIAO runs one channel: GPIO 3 (**D1**) drives the
-transistor stage, **D6** (GPIO 21) takes the DS18B20, and **D7** (GPIO 20) is free for a
-relay. Power it from the 5 V pad or USB-C. Attach the u.FL antenna; the board has no
+transistor stage, **D2/D3/D4** take the optional knob, **D6** (GPIO 21) takes the DS18B20,
+and **D7** (GPIO 20) is free for a relay. Power it from the 5 V pad or USB-C. Attach the u.FL antenna; the board has no
 PCB antenna. There is no user LED, so Wi-Fi state is only visible in the UI and serial
 log; the BOOT button still gives the 5 s access-point and 15 s factory-reset gestures.
 
@@ -132,6 +132,35 @@ external system can also post a temperature / humidity to `POST /api/sensors`.
   them against that order before powering up.
 - The firmware reads the first sensor on the bus every 10 s. The default thresholds of
   45 / 55 / 65 °C suit a sensor on the LED bar's heat sink.
+
+## Knob (optional rotary encoder)
+
+A rotary encoder with a push switch dims the light at the fixture without the web UI.
+
+- **Turn:** switches to Manual, starting from the level the light is at right now, and
+  steps it by 2 % per click. Fast spins move up to 4 times further per click. On boards
+  with several channels they all move together and keep their ratio.
+- **Press:** back to Auto, so the schedule takes over again.
+- The web UI shows **MANUAL · KNOB** while the knob is in control. Thermal protection,
+  slew limiting and the relay keep working.
+- Optional: Settings → Knob can return to Auto by itself after a number of minutes.
+
+| Encoder pin | XIAO pad | GPIO |
+|---|---|---|
+| A (often CLK) | D2 | 4 |
+| B (often DT) | D3 | 5 |
+| C, the middle encoder pin | GND | |
+| push switch, one side | D4 | 6 |
+| push switch, other side | GND | |
+
+The firmware enables the internal pull-ups, so a bare encoder needs no resistors. A
+KY-040 module also has a + pin: connect it to 3V3, never 5 V. If the light dims when you
+turn clockwise, tick Reverse direction in Settings → Knob, or swap A and B.
+
+Suitable parts: Alps EC11 series or Bourns PEC11R series, **with switch** (5 pins), about
+20 to 24 clicks per turn. Half-step encoders that produce two steps per click need
+*Steps per click* set to 2. The knob is enabled by default only on the XIAO build; on the
+other boards set its pins in Settings → Knob and reboot.
 
 ## Relay (optional)
 

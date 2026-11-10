@@ -15,6 +15,7 @@ static void detachAll() {
 // floating GPIO means the transistor is off and the driver runs at 100 %.
 static bool pinReserved(int8_t pin) {
   if (pin == cfg.relayPin || pin == cfg.oneWirePin || pin == PIN_BUTTON || pin == PIN_STATUS_LED) return true;
+  if (pin == cfg.knobA || pin == cfg.knobB || pin == cfg.knobBtn) return true;
   for (uint8_t i = 0; i < MAX_CHANNELS; i++) if (s_attachedPin[i] == pin) return true;
   return false;
 }
@@ -33,6 +34,10 @@ void channelsReconfigure() {
   for (uint8_t i = 0; i < cfg.numChannels; i++) {
     const ChannelCfg& c = cfg.ch[i];
     if (!c.enabled || c.pin < 0) continue;
+    if (c.pin == cfg.knobA || c.pin == cfg.knobB || c.pin == cfg.knobBtn) {
+      log_e("ch%u pin %d is used by the knob, channel not started", i, c.pin);
+      continue;
+    }
     if (!ledcAttach(c.pin, cfg.pwmFreq, cfg.pwmBits)) {
       log_e("ledcAttach failed ch%u pin %d", i, c.pin);
       continue;

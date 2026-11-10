@@ -4,9 +4,12 @@
 #if defined(BOARD_XIAO_C3)
   // Seeed Studio XIAO ESP32-C3, one board per driver. D0 (GPIO 2) and D8/D9 (GPIO 8/9)
   // are strapping pins: not used for outputs. GPIO 0/1 are not broken out on the XIAO.
-  #define MAX_CHANNELS   6
-  #define DEFAULT_CH_PINS {3, 4, 5, 6, 7, 10}   // D1, D2, D3, D4, D5, D10
+  #define MAX_CHANNELS   3
+  #define DEFAULT_CH_PINS {3, 7, 10}            // D1, D5, D10
   #define DEFAULT_NUM_CHANNELS 1                // one driver per board; raise in Settings if needed
+  #define DEFAULT_KNOB_A   4   // D2  rotary encoder A
+  #define DEFAULT_KNOB_B   5   // D3  rotary encoder B
+  #define DEFAULT_KNOB_BTN 6   // D4  encoder push switch
   #define PIN_ONEWIRE    21    // D6 (suggested relay pin if you add one: D7 = GPIO 20)
   #define PIN_STATUS_LED -1    // the XIAO has no user LED
   #define PIN_BUTTON     9     // BOOT button (D9)
@@ -36,6 +39,13 @@
 
 #ifndef DEFAULT_NUM_CHANNELS
   #define DEFAULT_NUM_CHANNELS 4
+#endif
+// Rotary encoder knob: off by default except on the XIAO, so it cannot collide with
+// channel pins on the bigger boards. Set the pins in Settings -> Knob.
+#ifndef DEFAULT_KNOB_A
+  #define DEFAULT_KNOB_A   -1
+  #define DEFAULT_KNOB_B   -1
+  #define DEFAULT_KNOB_BTN -1
 #endif
 
 #define MAX_PROFILES   5      // "modes" like seedling / veg / bloom ...

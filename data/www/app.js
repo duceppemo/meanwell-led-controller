@@ -56,7 +56,7 @@ function readForm(root, obj) {
   root.querySelectorAll('[data-k]').forEach(el => {
     let v;
     if (el.type === 'checkbox') v = el.checked;
-    else if (el.type === 'number') v = el.value === '' ? getPath(obj, el.dataset.k) : Number(el.value);
+    else if (el.type === 'number' || 'num' in el.dataset) v = el.value === '' ? getPath(obj, el.dataset.k) : Number(el.value);
     else v = el.value;
     setPath(obj, el.dataset.k, v);
   });
@@ -75,7 +75,8 @@ function renderStatus() {
   $('#devName').textContent = st.name;
   $('#clock').textContent = st.time.now + (st.time.synced ? '' : st.time.approx ? ' (approx.)' : ' (clock not set)');
   const pm = $('#pillMode');
-  pm.textContent = e.mode.toUpperCase() + (e.modeTimeoutS > 0 ? ' · ' + Math.ceil(e.modeTimeoutS / 60) + ' min' : '');
+  pm.textContent = e.mode.toUpperCase() + (e.mode === 'manual' && e.manualSource === 'knob' ? ' · KNOB' : '') +
+    (e.modeTimeoutS > 0 ? ' · ' + Math.ceil(e.modeTimeoutS / 60) + ' min' : '');
   pm.className = 'pill m-' + e.mode;
   $('#pillWifi').textContent = st.wifi.connected ? st.wifi.ssid + ' ' + st.wifi.rssi + ' dBm' : st.wifi.ap ? 'AP ' + st.wifi.apSsid : 'offline';
   $('#pillTemp').textContent = st.sensors.temp == null ? 'no temp sensor' : fmt(st.sensors.temp, 1) + ' °C' + (st.sensors.hum != null ? ' · ' + fmt(st.sensors.hum) + ' %RH' : '');

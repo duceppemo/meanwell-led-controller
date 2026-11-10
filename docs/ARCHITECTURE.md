@@ -61,6 +61,7 @@ relay = any output > 0 (off after delay)
 | Sensors | `src/Sensors.*` | Non-blocking DS18B20 polling; externally posted temperature and humidity with a 10 min staleness window. |
 | WifiManager | `src/WifiManager.*` | Station with 20 s timeout → AP `LEDctrl-xxxx` with captive DNS; retries station every 2 min; closes AP 3 min after station is up; mDNS and ArduinoOTA once connected. |
 | WebUi | `src/WebUi.*` | ESPAsyncWebServer: static files from `/www`, JSON API, captive-portal probes, OTA upload, deferred action queue. |
+| Knob | `src/Knob.*` | Optional rotary encoder: interrupt-driven quadrature decoding with resync at the rest position, acceleration, debounced push switch. Calls `engineKnobTurn()` / `engineKnobPress()`. |
 | BleProv | `src/BleProv.*` | NimBLE service 0xFFF0: write SSID / password / connect, notify Wi-Fi status. Compiled only in `esp32dev-ble`. |
 | Web UI | `data/www/` | Single-page vanilla JS app polling `/api/status` every 2 s; schedule editor draws curves with the same interpolation as the firmware (tested in `test/ui`). |
 

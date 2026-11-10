@@ -11,6 +11,7 @@ ROLE = {
     'ow':    ('#ddf4ff', '#0969da', '#0550ae'),
     'ui':    ('#eaeef2', '#8c959f', '#424a53'),
     'relay': ('#fbefff', '#8250df', '#6639ba'),
+    'knob':  ('#dafbe1', '#1a7f37', '#116329'),
     'avoid': ('#ffebe9', '#cf222e', '#a40e26'),
 }
 PWR = {'3V3': '#cf222e', '5V': '#cf222e', 'GND': '#1f2328', 'G': '#1f2328', 'EN': '#57606a', 'RST': '#57606a'}
@@ -22,12 +23,13 @@ def pin(name, role=None, tag=None):
 XIAO = dict(
     title='Seeed XIAO ESP32-C3', env='xiao-c3',
     usb='top', module='ESP32-C3',
-    left=[pin('D0·IO2', 'avoid', 'strapping'), pin('D1·IO3', 'ch', 'CH1'), pin('D2·IO4', 'ch', 'CH2'),
-          pin('D3·IO5', 'ch', 'CH3'), pin('D4·IO6', 'ch', 'CH4'), pin('D5·IO7', 'ch', 'CH5'),
+    left=[pin('D0·IO2', 'avoid', 'strapping'), pin('D1·IO3', 'ch', 'CH1'), pin('D2·IO4', 'knob', 'knob A'),
+          pin('D3·IO5', 'knob', 'knob B'), pin('D4·IO6', 'knob', 'knob push'), pin('D5·IO7', 'ch', 'CH2'),
           pin('D6·IO21', 'ow', '1-Wire')],
-    right=[pin('5V'), pin('GND'), pin('3V3'), pin('D10·IO10', 'ch', 'CH6'), pin('D9·IO9', 'ui', 'BOOT btn'),
+    right=[pin('5V'), pin('GND'), pin('3V3'), pin('D10·IO10', 'ch', 'CH3'), pin('D9·IO9', 'ui', 'BOOT btn'),
            pin('D8·IO8', 'avoid', 'strapping'), pin('D7·IO20', 'relay', 'relay?')],
     notes=['Front view, USB-C up. One channel (D1) enabled by default.',
+           'Knob (rotary encoder) on D2–D4, its common pins to GND.',
            'No user LED. Attach the u.FL antenna.'],
 )
 C3 = dict(
@@ -184,7 +186,7 @@ panel(X2, Y2, S3, rows2)
 add(f'<rect class="panel" x="25" y="{LEG_Y}" width="910" height="40" rx="8"/>')
 lx = 44
 for label, role in (('CH1–CH8  PWM channel', 'ch'), ('1-Wire  DS18B20', 'ow'), ('button · LED · UART', 'ui'),
-                    ('suggested relay pin', 'relay'), ('avoid: strapping · flash · USB · input only', 'avoid')):
+                    ('knob', 'knob'), ('suggested relay pin', 'relay'), ('avoid: strapping · flash · USB · input only', 'avoid')):
     fill, stroke, tc = ROLE[role]
     add(f'<rect x="{lx}" y="{LEG_Y+13}" width="22" height="14" rx="7" fill="{fill}" stroke="{stroke}"/>')
     text(lx + 28, LEG_Y + 24, label, 's')

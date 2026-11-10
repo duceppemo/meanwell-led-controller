@@ -53,6 +53,12 @@ struct Config {
   int8_t   relayPin;
   bool     relayActiveLow;
   uint16_t relayOffDelayS; // keep the relay on this long after all channels reach 0
+  // rotary encoder knob (-1 = not fitted); pins applied at boot
+  int8_t   knobA, knobB, knobBtn;
+  float    knobStepPct;     // % per detent before acceleration
+  uint8_t  knobDivider;     // quadrature steps per detent: 4 (most EC11) or 2 (half-step)
+  bool     knobReverse;
+  uint16_t knobTimeoutMin;  // 0 = stay in Manual until the knob is pressed
 };
 
 extern Config cfg;

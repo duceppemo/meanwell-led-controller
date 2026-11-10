@@ -51,6 +51,7 @@ endpoint under `/api/`. See [docs/WEB_UI.md](docs/WEB_UI.md).
   60 s whole-day preview on the real fixture
 - Modes Auto / Manual / Off plus timed pause (feeding, maintenance, spraying) that
   returns to Auto by itself
+- Optional rotary-encoder knob at the fixture: turn to dim, press to return to Auto
 - Lunar cycle from the real moon phase, random passing clouds, on-demand lightning
   storms, each opt-in per channel
 - Acclimation ramp for new plants or corals (start % → 100 % over N days)

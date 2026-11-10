@@ -27,7 +27,7 @@ Hold BOOT for 15 s to factory-reset (erases config, schedules and Wi-Fi credenti
 | **Dashboard** | Live bars per channel (output, target marker, driver %), mode buttons Auto / Manual / Off, manual sliders, timed pause (15 min – 4 h, returns to Auto), master level, Preview day, Storm trigger, current moon / cloud / thermal / acclimation / relay state. |
 | **Schedule** | Profiles (up to 5, e.g. Seedling / Veg / Bloom): rename, add, delete, set active. Interactive 24 h graph of all channels, click to add a point, point table with time and level, smooth (cosine) toggle, sunrise/sunset wizard, copy curve to all channels. |
 | **Effects** | Lunar cycle (max % at full moon, per-channel opt-in), passing clouds (depth, min/max gap), lightning enable, acclimation (start %, days, start now), thermal protection thresholds. |
-| **Settings** | Device name, hostname, AP password, Wi-Fi scan and connect, timezone and NTP, PWM frequency / resolution, slew rate, fallback level, relay pin and delay, 1-Wire pin, channel table (enable, name, GPIO, invert, min, max, gamma, moon, effects). |
+| **Settings** | Device name, hostname, AP password, Wi-Fi scan and connect, timezone and NTP, PWM frequency / resolution, slew rate, fallback level, relay pin and delay, 1-Wire pin, knob pins / step / direction / auto-return, channel table (enable, name, GPIO, invert, min, max, gamma, moon, effects). |
 | **System** | Firmware version, uptime, heap, IP / MAC, OTA upload (firmware or filesystem), backup download and restore, reboot, start access point, factory reset. |
 
 The UI polls `/api/status` every 2 s (0.7 s during preview) and keeps working from the
@@ -58,7 +58,7 @@ curl -X POST -H "Content-Type: application/json" \
 
 | Endpoint | Body / result |
 |---|---|
-| `GET /api/status` | `fw`, `uptimeS`, `heap`, `time{now,epoch,synced,approx,known,minute,tz}`, `wifi{...}`, `sensors{temp,hum,local}`, `engine{mode,modeTimeoutS,profile,thermal,acclimation,cloud,shutdown,flash,relay,stormS,moon,moonPhase,channels[{name,enabled,target,output,driver,manual}]}`, `master` |
+| `GET /api/status` | `fw`, `uptimeS`, `heap`, `time{now,epoch,synced,approx,known,minute,tz}`, `wifi{...}`, `sensors{temp,hum,local}`, `engine{mode,manualSource,modeTimeoutS,profile,thermal,acclimation,cloud,shutdown,flash,relay,stormS,moon,moonPhase,channels[{name,enabled,target,output,driver,manual}]}`, `master`, `knob` (encoder fitted). `manualSource` is `knob` or `web`. |
 | `GET /api/config` | all settings (passwords masked as `********`) plus `maxChannels`, `maxProfiles`, `maxPoints` |
 | `POST /api/config` | same shape; unknown keys ignored, missing keys keep their value, masked passwords are not overwritten |
 | `GET /api/profiles` | `{active, profiles:[{name, smooth, channels:[[[minute, level], …], …]}]}` |

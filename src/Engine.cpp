@@ -9,6 +9,10 @@
 static Mode     s_mode = MODE_AUTO;
 static uint32_t s_modeEnd = 0;           // ms, 0 = no timeout
 static float    s_manual[MAX_CHANNELS];
+static float    s_base[MAX_CHANNELS];     // level before master / acclimation / thermal scaling
+static bool     s_knob = false;           // Manual levels currently come from the knob
+static float    s_knobRatio[MAX_CHANNELS];
+static float    s_knobLevel = 0;          // brightest channel while the knob is in control
 static float    s_target[MAX_CHANNELS];
 static float    s_output[MAX_CHANNELS];
 static float    s_thermal = 1, s_accl = 1, s_cloud = 1;
@@ -46,19 +50,45 @@ static void relayLoop(uint32_t now, bool anyOn) {
 }
 
 void engineBegin() {
-  for (uint8_t i = 0; i < MAX_CHANNELS; i++) { s_manual[i] = 0; s_target[i] = 0; s_output[i] = 0; }
+  for (uint8_t i = 0; i < MAX_CHANNELS; i++) { s_manual[i] = 0; s_base[i] = 0; s_target[i] = 0; s_output[i] = 0; s_knobRatio[i] = 0; }
   engineConfigChanged();
   s_lastTick = millis();
 }
 
 void engineSetMode(Mode m, uint32_t timeoutS) {
   s_mode = m;
+  s_knob = false;
   s_modeEnd = timeoutS ? millis() + timeoutS * 1000UL : 0;
 }
 
 void engineSetManual(const float* levels, uint8_t n) {
   for (uint8_t i = 0; i < MAX_CHANNELS && i < n; i++) s_manual[i] = constrain(levels[i], 0.0f, 100.0f);
+  s_knob = false;
   if (s_mode != MODE_MANUAL) engineSetMode(MODE_MANUAL, 0);
+}
+
+// The knob moves all enabled channels together and keeps their ratio, so a
+// multi-channel spectrum is dimmed, not re-mixed. Ratios are captured when the knob
+// takes over; if everything was dark, all channels come up equally.
+void engineKnobTurn(float deltaPct) {
+  if (s_mode != MODE_MANUAL || !s_knob) {
+    const float* src = (s_mode == MODE_MANUAL) ? s_manual : s_base;
+    float mx = 0;
+    for (uint8_t i = 0; i < cfg.numChannels; i++) if (cfg.ch[i].enabled) mx = max(mx, src[i]);
+    for (uint8_t i = 0; i < MAX_CHANNELS; i++) {
+      bool on = i < cfg.numChannels && cfg.ch[i].enabled;
+      s_knobRatio[i] = !on ? 0.0f : (mx > 0.01f ? src[i] / mx : 1.0f);
+    }
+    s_knobLevel = mx;
+  }
+  s_knobLevel = constrain(s_knobLevel + deltaPct, 0.0f, 100.0f);
+  for (uint8_t i = 0; i < MAX_CHANNELS; i++) s_manual[i] = constrain(s_knobRatio[i] * s_knobLevel, 0.0f, 100.0f);
+  engineSetMode(MODE_MANUAL, (uint32_t)cfg.knobTimeoutMin * 60UL);   // each click restarts the timeout
+  s_knob = true;
+}
+
+void engineKnobPress() {
+  engineSetMode(MODE_AUTO);
 }
 
 void engineStartPreview(uint16_t seconds) {
@@ -131,6 +161,7 @@ void engineLoop() {
         }
         break;
     }
+    s_base[i] = lvl;
     lvl *= (cfg.master / 100.0f) * s_accl;
     if (s_mode != MODE_OFF) lvl *= s_thermal;
     if (s_flash && c.effects && s_mode != MODE_OFF && !s_shutdown) lvl = 100.0f;
@@ -150,6 +181,7 @@ void engineLoop() {
 void engineStatusJson(JsonObject o) {
   static const char* names[] = { "auto", "manual", "off", "preview" };
   o["mode"] = names[s_mode];
+  o["manualSource"] = s_knob ? "knob" : "web";
   o["modeTimeoutS"] = s_modeEnd ? (int32_t)(s_modeEnd - millis()) / 1000 : 0;
   o["profile"] = profiles.p[profiles.active].name;
   o["profileIndex"] = profiles.active;

@@ -16,7 +16,7 @@
 |---|---|---|
 | `esp32dev` (default) | classic ESP32 WROOM-32 | 8 channels |
 | `esp32dev-ble` | same | adds NimBLE Wi-Fi provisioning (+250 KB flash) |
-| `xiao-c3` | Seeed Studio XIAO ESP32-C3 | one board per driver: 1 channel enabled by default, 6 available, USB CDC console |
+| `xiao-c3` | Seeed Studio XIAO ESP32-C3 | one board per driver: 1 channel enabled by default, 3 available, knob on D2–D4, USB CDC console |
 | `esp32-c3` | ESP32-C3 DevKitM-1 | 6 channels, USB CDC console |
 | `esp32-s3` | ESP32-S3 DevKitC-1 | 8 channels, USB CDC console |
 

@@ -13,6 +13,7 @@
 #include "TimeKeeper.h"
 #include "WifiManager.h"
 #include "Sensors.h"
+#include "Knob.h"
 
 #ifndef FW_VERSION
 #define FW_VERSION "dev"
@@ -61,6 +62,7 @@ static void statusJson(JsonObject o) {
   s["local"] = sensorLocalPresent();
   engineStatusJson(o["engine"].to<JsonObject>());
   o["master"] = cfg.master;
+  o["knob"] = knobPresent();
 }
 
 static bool isCaptiveHost(AsyncWebServerRequest* req) {

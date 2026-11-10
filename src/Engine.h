@@ -12,6 +12,8 @@ void engineLoop();
 void engineSetMode(Mode m, uint32_t timeoutS = 0);    // timeout: return to AUTO afterwards (feed / maintenance)
 void engineSetManual(const float* levels, uint8_t n); // levels 0..100, also switches to MANUAL
 void engineStartPreview(uint16_t seconds);            // play the whole day in `seconds`
+void engineKnobTurn(float deltaPct);                  // knob: enter Manual from the current level, step it
+void engineKnobPress();                               // knob: back to Auto
 void engineTriggerStorm(uint16_t seconds);
 void engineStopStorm();
 void engineStatusJson(JsonObject o);

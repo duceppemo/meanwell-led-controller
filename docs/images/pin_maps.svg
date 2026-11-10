@@ -14,7 +14,7 @@
 <rect width="960" height="1209" fill="#f6f8fa" rx="12"/>
 <text class="h" x="25" y="38" font-size="17">Default pin maps</text>
 <text class="s" x="190" y="38">header order as printed on each board; tags show the firmware default for that pin (all editable in Settings)</text>
-<rect class="panel" x="25" y="64" width="445" height="445" rx="8"/>
+<rect class="panel" x="25" y="64" width="445" height="460" rx="8"/>
 <text class="h" x="41" y="88">Seeed XIAO ESP32-C3</text>
 <text class="env" x="454" y="88" text-anchor="end">env: xiao-c3</text>
 <rect x="208.5" y="114" width="78" height="197" rx="6" fill="#1f5135" stroke="#163d28" stroke-width="1.2"/>
@@ -31,20 +31,20 @@
 <text class="chip" x="119.2" y="182.8" text-anchor="middle" fill="#7a5a00">CH1</text>
 <circle cx="215.5" cy="198" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="200.5" y="202" text-anchor="end">D2·IO4</text>
-<rect x="105.9" y="190.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
-<text class="chip" x="119.2" y="201.8" text-anchor="middle" fill="#7a5a00">CH2</text>
+<rect x="87.3" y="190.5" width="45.2" height="15" rx="7.5" fill="#dafbe1" stroke="#1a7f37" stroke-width="1"/>
+<text class="chip" x="109.9" y="201.8" text-anchor="middle" fill="#116329">knob A</text>
 <circle cx="215.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="200.5" y="221" text-anchor="end">D3·IO5</text>
-<rect x="105.9" y="209.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
-<text class="chip" x="119.2" y="220.8" text-anchor="middle" fill="#7a5a00">CH3</text>
+<rect x="87.3" y="209.5" width="45.2" height="15" rx="7.5" fill="#dafbe1" stroke="#1a7f37" stroke-width="1"/>
+<text class="chip" x="109.9" y="220.8" text-anchor="middle" fill="#116329">knob B</text>
 <circle cx="215.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="200.5" y="240" text-anchor="end">D4·IO6</text>
-<rect x="105.9" y="228.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
-<text class="chip" x="119.2" y="239.8" text-anchor="middle" fill="#7a5a00">CH4</text>
+<rect x="68.7" y="228.5" width="63.8" height="15" rx="7.5" fill="#dafbe1" stroke="#1a7f37" stroke-width="1"/>
+<text class="chip" x="100.6" y="239.8" text-anchor="middle" fill="#116329">knob push</text>
 <circle cx="215.5" cy="255" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="200.5" y="259" text-anchor="end">D5·IO7</text>
 <rect x="105.9" y="247.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
-<text class="chip" x="119.2" y="258.8" text-anchor="middle" fill="#7a5a00">CH5</text>
+<text class="chip" x="119.2" y="258.8" text-anchor="middle" fill="#7a5a00">CH2</text>
 <circle cx="215.5" cy="274" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="200.5" y="278" text-anchor="end">D6·IO21</text>
 <rect x="87.3" y="266.5" width="45.2" height="15" rx="7.5" fill="#ddf4ff" stroke="#0969da" stroke-width="1"/>
@@ -58,7 +58,7 @@
 <circle cx="279.5" cy="217" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="294.5" y="221">D10·IO10</text>
 <rect x="362.5" y="209.5" width="26.6" height="15" rx="7.5" fill="#fff4cc" stroke="#d4a017" stroke-width="1"/>
-<text class="chip" x="375.8" y="220.8" text-anchor="middle" fill="#7a5a00">CH6</text>
+<text class="chip" x="375.8" y="220.8" text-anchor="middle" fill="#7a5a00">CH3</text>
 <circle cx="279.5" cy="236" r="4" fill="#d4a017" stroke="#9a6700" stroke-width="1"/>
 <text class="pn" x="294.5" y="240">D9·IO9</text>
 <rect x="362.5" y="228.5" width="57.6" height="15" rx="7.5" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
@@ -72,7 +72,8 @@
 <rect x="362.5" y="266.5" width="45.2" height="15" rx="7.5" fill="#fbefff" stroke="#8250df" stroke-width="1"/>
 <text class="chip" x="385.1" y="277.8" text-anchor="middle" fill="#6639ba">relay?</text>
 <text class="note" x="41" y="333">Front view, USB-C up. One channel (D1) enabled by default.</text>
-<text class="note" x="41" y="348">No user LED. Attach the u.FL antenna.</text>
+<text class="note" x="41" y="348">Knob (rotary encoder) on D2–D4, its common pins to GND.</text>
+<text class="note" x="41" y="363">No user LED. Attach the u.FL antenna.</text>
 <rect class="panel" x="490" y="64" width="445" height="445" rx="8"/>
 <text class="h" x="506" y="88">ESP32-C3-DevKitM-1</text>
 <text class="env" x="919" y="88" text-anchor="end">env: esp32-c3</text>
@@ -458,8 +459,10 @@
 <text class="s" x="226.0" y="1175">1-Wire  DS18B20</text>
 <rect x="322.0" y="1164" width="22" height="14" rx="7" fill="#eaeef2" stroke="#8c959f"/>
 <text class="s" x="350.0" y="1175">button · LED · UART</text>
-<rect x="470.0" y="1164" width="22" height="14" rx="7" fill="#fbefff" stroke="#8250df"/>
-<text class="s" x="498.0" y="1175">suggested relay pin</text>
-<rect x="618.0" y="1164" width="22" height="14" rx="7" fill="#ffebe9" stroke="#cf222e"/>
-<text class="s" x="646.0" y="1175">avoid: strapping · flash · USB · input only</text>
+<rect x="470.0" y="1164" width="22" height="14" rx="7" fill="#dafbe1" stroke="#1a7f37"/>
+<text class="s" x="498.0" y="1175">knob</text>
+<rect x="528.0" y="1164" width="22" height="14" rx="7" fill="#fbefff" stroke="#8250df"/>
+<text class="s" x="556.0" y="1175">suggested relay pin</text>
+<rect x="676.0" y="1164" width="22" height="14" rx="7" fill="#ffebe9" stroke="#cf222e"/>
+<text class="s" x="704.0" y="1175">avoid: strapping · flash · USB · input only</text>
 </svg>

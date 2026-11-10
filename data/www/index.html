@@ -198,6 +198,21 @@
         <p class="muted small">Switches driver mains or DC off once all channels are at 0 %. Useful for older HLG-B drivers that only dim down to ~10 %, or to cut standby power.</p>
       </div>
       <div class="card">
+        <h2>Knob (rotary encoder)</h2>
+        <div class="form2">
+          <label>A GPIO (-1 = none) <input type="number" min="-1" max="48" data-k="knob.a"></label>
+          <label>B GPIO <input type="number" min="-1" max="48" data-k="knob.b"></label>
+          <label>Push GPIO <input type="number" min="-1" max="48" data-k="knob.btn"></label>
+          <label>% per click <input type="number" min="0.5" max="25" step="0.5" data-k="knob.step"></label>
+          <label>Steps per click
+            <select data-k="knob.div" data-num><option value="4">4 (most EC11)</option><option value="2">2 (half-step)</option><option value="1">1</option></select>
+          </label>
+          <label>Back to Auto after (min, 0 = on press only) <input type="number" min="0" max="1440" data-k="knob.timeoutMin"></label>
+        </div>
+        <label class="chk"><input type="checkbox" data-k="knob.reverse"> Reverse direction</label>
+        <p class="muted small">Turn: Manual from the current level, fast spins move further. Press: back to Auto. Pins are applied at the next reboot.</p>
+      </div>
+      <div class="card">
         <h2>Sensors</h2>
         <label>DS18B20 1-Wire GPIO (-1 = none, applied at next reboot) <input type="number" min="-1" max="48" data-k="sensors.oneWirePin"></label>
       </div>
