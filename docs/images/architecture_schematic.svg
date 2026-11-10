@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
   <title>Firmware architecture</title>
-  <desc>Config, Schedule, Effects, Sensors and TimeKeeper feed the Engine from the left; the Engine drives Channels (LEDC PWM) to the Mean Well DIM+/DIM- inputs and an optional relay on the right; Channels also read Config. WebUi sends configuration to Config and Schedule and control commands to the Engine; WebUi and BleProv hand Wi-Fi credentials to WifiManager; main.cpp polls every subsystem from one loop.</desc>
+  <desc>Config, Schedule, Effects, Sensors and TimeKeeper feed the Engine from the left; the Engine drives Channels (LEDC PWM) to the Mean Well DIM+/DIM- inputs and an optional relay on the right; Channels also read Config. WebUi sends configuration to Config and Schedule and control commands to the Engine; WebUi and BleProv hand Wi-Fi credentials to WifiManager; an optional rotary-encoder Knob sends turn and press commands to the Engine; main.cpp polls every subsystem from one loop.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#57606a"/>
@@ -78,6 +78,12 @@
   <text class="t h" x="795" y="288" text-anchor="middle">Relay / SSR (optional)</text>
   <text class="s" x="795" y="305" text-anchor="middle">true off for older HLG-B drivers · cuts standby power</text>
 
+  <!-- ===== knob (optional, local control) ===== -->
+  <rect class="box" x="660" y="336" width="270" height="56"/>
+  <text class="t h" x="795" y="358" text-anchor="middle">Knob (optional)</text>
+  <text class="s" x="795" y="376" text-anchor="middle">rotary encoder: turn → Manual, press → Auto</text>
+  <path class="cfg" d="M660,364 L580,364"/>
+
   <!-- ===== bottom row: connectivity ===== -->
   <rect class="box" x="60" y="450" width="140" height="70"/>
   <text class="t h" x="130" y="472" text-anchor="middle">WebUi</text>
@@ -138,6 +144,6 @@
     <line x1="190" y1="0" x2="226" y2="0" class="link"/>
     <text class="s" x="234" y="4">data read</text>
     <line x1="320" y1="0" x2="356" y2="0" class="cfg"/>
-    <text class="s" x="364" y="4">configuration / control (web UI, BLE)</text>
+    <text class="s" x="364" y="4">configuration / control (web UI, BLE, knob)</text>
   </g>
 </svg>

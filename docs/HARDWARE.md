@@ -137,6 +137,8 @@ external system can also post a temperature / humidity to `POST /api/sensors`.
 
 A rotary encoder with a push switch dims the light at the fixture without the web UI.
 
+![Rotary encoder wiring: encoder A to D2 (GPIO4), B to D3 (GPIO5), common C to GND, push switch between D4 (GPIO6) and GND, internal pull-ups; EC11 pinout from below, KY-040 header labels, and the knob behaviour](images/knob.svg)
+
 - **Turn:** switches to Manual, starting from the level the light is at right now, and
   steps it by 2 % per click. Fast spins move up to 4 times further per click. On boards
   with several channels they all move together and keep their ratio.

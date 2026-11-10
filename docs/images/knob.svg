@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13">
+  <title>Rotary encoder knob wiring</title>
+  <desc>A rotary encoder with push switch wired to a XIAO ESP32-C3: encoder A to D2 (GPIO4), B to D3 (GPIO5), the common pin C to GND, one side of the push switch to D4 (GPIO6) and the other to GND; the firmware enables internal pull-ups. Below, the EC11 pin layout seen from below with the three encoder pins on one side and two switch pins on the other, the KY-040 module header, and how the knob behaves.</desc>
+  <defs>
+    <style>
+      .box{fill:#ffffff;stroke:#8c959f;stroke-width:1.2}
+      .t{fill:#1f2328}
+      .h{font-weight:600;font-size:14px}
+      .s{fill:#57606a;font-size:11px}
+      .pin{fill:#1f2328;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .pn{fill:#0969da;font-size:11px;font-family:ui-monospace, Consolas, monospace}
+      .w{stroke:#1f2328;stroke-width:1.6;fill:none;stroke-linejoin:round}
+      .logic{stroke:#d4a017;stroke-width:2;fill:none;stroke-linejoin:round}
+      .sw{stroke:#1a7f37;stroke-width:2;fill:none;stroke-linejoin:round}
+      .gnd{stroke:#1f2328;stroke-width:2;fill:none;stroke-linejoin:round}
+      .node{fill:#1f2328}
+      .note{fill:#57606a;font-size:11px;font-style:italic}
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#f6f8fa" rx="12"/>
+
+  <!-- ================= schematic ================= -->
+  <rect class="box" x="40" y="56" width="180" height="236" rx="8"/>
+  <text class="t h" x="130" y="82" text-anchor="middle">XIAO ESP32-C3</text>
+  <text class="s" x="130" y="98" text-anchor="middle">internal pull-ups enabled</text>
+  <text class="pin" x="212" y="124" text-anchor="end">D2 / GPIO4</text>
+  <text class="pin" x="212" y="164" text-anchor="end">D3 / GPIO5</text>
+  <text class="pin" x="212" y="204" text-anchor="end">D4 / GPIO6</text>
+  <text class="pin" x="212" y="264" text-anchor="end">GND</text>
+
+  <!-- A, B, push -->
+  <path class="logic" d="M220,120 L560,120"/>
+  <path class="logic" d="M220,160 L560,160"/>
+  <path class="sw" d="M220,200 L560,200"/>
+  <path class="gnd" d="M220,260 L520,260"/>
+  <text class="s" x="390" y="114" text-anchor="middle">A (often CLK)</text>
+  <text class="s" x="390" y="154" text-anchor="middle">B (often DT)</text>
+  <text class="s" x="390" y="194" text-anchor="middle">push switch</text>
+
+  <!-- ground fan-out to C and to the second switch pin -->
+  <circle class="node" cx="520" cy="260" r="3"/>
+  <path class="gnd" d="M520,260 L560,260"/>
+  <path class="gnd" d="M520,260 L520,226 L560,226"/>
+  <text class="s" x="390" y="254" text-anchor="middle">GND to C and to the switch</text>
+
+  <!-- encoder body -->
+  <rect x="560" y="96" width="250" height="180" rx="8" fill="#ffffff" stroke="#1f2328" stroke-width="1.4"/>
+  <text class="t" x="685" y="86" text-anchor="middle" font-weight="600" font-size="13">Rotary encoder with push switch (EC11)</text>
+  <text class="pn" x="572" y="124">A</text>
+  <text class="pn" x="572" y="164">B</text>
+  <text class="pn" x="572" y="204">SW</text>
+  <text class="pn" x="572" y="230">SW</text>
+  <text class="pn" x="572" y="264">C</text>
+  <!-- A and B contacts to the common C bus -->
+  <path class="w" d="M590,120 L620,120 L638,110"/>
+  <path class="w" d="M642,120 L670,120 L670,260 L590,260"/>
+  <path class="w" d="M590,160 L620,160 L638,150"/>
+  <path class="w" d="M642,160 L670,160"/>
+  <circle class="node" cx="670" cy="160" r="2.5"/>
+  <text class="s" x="684" y="130">A and B open and</text>
+  <text class="s" x="684" y="144">close against C,</text>
+  <text class="s" x="684" y="158">a quarter period apart</text>
+  <!-- push switch between the two SW pins -->
+  <path class="w" d="M590,200 L610,200 M640,200 L650,200 L650,226 L590,226"/>
+  <circle cx="610" cy="200" r="2.5" fill="#1f2328"/><circle cx="640" cy="200" r="2.5" fill="#1f2328"/>
+  <path class="w" d="M606,190 L644,190 M625,190 L625,180"/>
+  <text class="s" x="684" y="204">push switch: closes</text>
+  <text class="s" x="684" y="218">when the knob is pressed</text>
+
+  <!-- knob -->
+  <circle cx="870" cy="180" r="44" fill="#d0d7de" stroke="#8c959f" stroke-width="1.4"/>
+  <circle cx="870" cy="180" r="30" fill="#eaeef2" stroke="#8c959f" stroke-width="1"/>
+  <path d="M870,152 L870,166" stroke="#57606a" stroke-width="3" stroke-linecap="round"/>
+  <path d="M838,128 A60,60 0 0 1 902,128" fill="none" stroke="#1a7f37" stroke-width="1.6"/>
+  <polygon points="904,129 895,124 898,133" fill="#1a7f37"/>
+  <text class="s" x="870" y="112" text-anchor="middle">turn</text>
+  <text class="s" x="870" y="244" text-anchor="middle">push</text>
+  <path d="M870,230 L870,228" stroke="#1a7f37"/>
+
+  <text class="s" x="40" y="314"><tspan fill="#9a6700" font-weight="600">yellow</tspan> encoder outputs · <tspan fill="#1a7f37" font-weight="600">green</tspan> push switch · <tspan fill="#1f2328" font-weight="600">black</tspan> ground. No resistors needed: the firmware enables the internal pull-ups.</text>
+
+  <!-- ================= pinout ================= -->
+  <rect class="box" x="40" y="334" width="540" height="210" rx="8"/>
+  <text class="t h" x="56" y="356">Pinout</text>
+
+  <!-- EC11 from below -->
+  <text class="t" x="70" y="382" font-weight="600" font-size="12">EC11, bare part</text>
+  <text class="s" x="70" y="396">seen from below</text>
+  <rect x="80" y="420" width="96" height="86" rx="6" fill="#24292f"/>
+  <circle cx="128" cy="463" r="16" fill="#57606a"/>
+  <path d="M98,506 L98,522 M128,506 L128,522 M158,506 L158,522" stroke="#8c959f" stroke-width="4" stroke-linecap="round"/>
+  <text class="pn" x="98" y="536" text-anchor="middle">A</text>
+  <text class="pn" x="128" y="536" text-anchor="middle">C</text>
+  <text class="pn" x="158" y="536" text-anchor="middle">B</text>
+  <path d="M106,420 L106,406 M150,420 L150,406" stroke="#8c959f" stroke-width="4" stroke-linecap="round"/>
+  <text class="s" x="194" y="414">2 switch pins,</text>
+  <text class="s" x="194" y="428">either way round</text>
+  <text class="s" x="194" y="512">3 encoder pins,</text>
+  <text class="s" x="194" y="526">C in the middle</text>
+
+  <!-- KY-040 -->
+  <text class="t" x="380" y="382" font-weight="600" font-size="12">KY-040 module</text>
+  <text class="s" x="380" y="396">header labels</text>
+  <rect x="380" y="410" width="150" height="70" rx="6" fill="#0f5d9e"/>
+  <circle cx="455" cy="440" r="18" fill="#d0d7de"/>
+  <text class="pin" x="380" y="500">CLK → D2</text>
+  <text class="pin" x="380" y="514">DT  → D3</text>
+  <text class="pin" x="380" y="528">SW  → D4</text>
+  <text class="pin" x="460" y="500">+   → 3V3</text>
+  <text class="pin" x="460" y="514">GND → GND</text>
+  <text class="note" x="460" y="528">never 5 V</text>
+
+  <!-- ================= behaviour ================= -->
+  <rect class="box" x="600" y="334" width="320" height="210" rx="8"/>
+  <text class="t h" x="616" y="356">Behaviour</text>
+  <text class="t" x="616" y="378" font-size="12"><tspan font-weight="600">Turn</tspan>  Manual, from the current level</text>
+  <text class="s" x="616" y="392">     2 % per click, up to 4× on fast spins</text>
+  <text class="s" x="616" y="406">     several channels keep their ratio</text>
+  <text class="t" x="616" y="428" font-size="12"><tspan font-weight="600">Press</tspan>  back to Auto (the schedule)</text>
+  <text class="s" x="616" y="450">Web UI shows MANUAL · KNOB. Thermal</text>
+  <text class="s" x="616" y="464">protection, slew limit and relay still apply.</text>
+  <text class="t h" x="616" y="490" font-size="13">In Settings → Knob</text>
+  <text class="s" x="616" y="508">pins, % per click, steps per click (2 for</text>
+  <text class="s" x="616" y="522">half-step parts), reverse direction, and an</text>
+  <text class="s" x="616" y="536">optional return to Auto after N minutes.</text>
+</svg>
