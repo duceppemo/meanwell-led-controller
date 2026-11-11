@@ -116,6 +116,29 @@ and **D7** (GPIO 20) is free for a relay. Power it from the 5 V pad or USB-C. At
 PCB antenna. There is no user LED, so Wi-Fi state is only visible in the UI and serial
 log; the BOOT button still gives the 5 s access-point and 15 s factory-reset gestures.
 
+### Perfboard prototype (XIAO, one driver)
+
+![Perfboard layout on 20 by 18 holes: XIAO ESP32-C3 on female headers at the top left, knob header J4 on the left edge, DS18B20 header J3, 5 V terminal J1 and driver terminal J2 along the bottom edge, with R1, R2, R3, Q1 and C1; the solder side is drawn mirrored with every wire coloured by net, plus the parts list and build checks](images/perfboard.svg)
+
+One controller per light bar on a 20 × 18 hole piece of 2.54 mm perfboard. It carries
+the open-collector stage from option A, the DS18B20 pull-up, a knob header and a 5 V input.
+Columns are lettered and rows numbered in the same way on both views, so a hole keeps its
+name when you flip the board.
+
+- Lay the wires with tinned copper wire or solder bridges, following the solder-side
+  view. That view is mirrored left to right.
+- Mount the XIAO on female headers. Two wires run underneath it, so it must not sit flat on
+  the board.
+- For a 2N7000 instead of the BC547, use the same holes with the flat face turned toward
+  the top edge, and change R1 to 100 Ω.
+- Power the board from J1 or from USB-C, never both at once.
+- The knob header J4 has no + pin. A KY-040 module works with its + pin unconnected,
+  because the firmware enables the internal pull-ups.
+- There is no relay header. D7 is free if you want to wire a relay module by hand.
+
+The layout comes from `docs/images/gen_perfboard.py`, which also checks the wiring against
+the netlist before drawing. Edit the layout there and rerun it rather than editing the SVG.
+
 ## Temperature sensor
 
 A **DS18B20** on the 1-Wire pin (4.7 kΩ pull-up to 3.3 V) enables heat-sink or canopy

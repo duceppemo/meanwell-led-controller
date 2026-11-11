@@ -75,7 +75,7 @@ the ideas not implemented yet.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — design rules, runtime flow and
   component responsibilities
 - [docs/HARDWARE.md](docs/HARDWARE.md) — Mean Well dimming specs, level-shifting
-  circuits, pin maps, temperature sensor and relay wiring
+  circuits, pin maps, perfboard layout, temperature sensor, knob and relay wiring
 - [docs/WEB_UI.md](docs/WEB_UI.md) — first start, UI pages, security, REST API with
   Home Assistant examples, BLE provisioning
 - [docs/BUILD.md](docs/BUILD.md) — PlatformIO environments, flashing, OTA, tests and
